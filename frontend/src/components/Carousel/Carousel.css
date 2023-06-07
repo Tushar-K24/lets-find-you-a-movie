@@ -1,0 +1,52 @@
+.carousel {
+  height: 32rem;
+  background-size: contain;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+.carousel-blurred-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.carousel-container {
+  margin-top: 5rem;
+  height: 27rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carousel-content {
+  height: 100%;
+  display: flex;
+  flex-grow: 2;
+  align-items: flex-end;
+}
+
+.carousel-desc {
+  margin: 3rem 4rem;
+}
+
+.carousel-desc h1 {
+  margin: 1.5rem 0;
+  font-size: 250%;
+}
+
+.carousel-button {
+  height: 100%;
+  padding: 0.5%;
+  background-color: rgb(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}

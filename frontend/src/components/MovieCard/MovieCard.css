@@ -1,0 +1,27 @@
+.movie-card {
+  margin: 0.5rem;
+  width: 10.5rem;
+  height: 100%;
+}
+
+.movie-card-btn {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+.movie-card-image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.6rem;
+}
+
+.movie-card-title {
+  margin-top: 0.6rem;
+  font-weight: 600;
+}
