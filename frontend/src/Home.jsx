@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import MoviesSection from "./components/MoviesSection/MoviesSection";
 import MoviePage from "./components/MoviePage/MoviePage";
+import MyListPage from "./components/MyList/MyListPage";
 import { useState } from "react";
 
 const movies = [
@@ -61,12 +62,25 @@ const movies = [
 
 function Home() {
   const [movieId, setMovieId] = useState("");
+  const [isMyListActive, setIsMyListActive] = useState(false);
+
+  const openMyList = () => {
+    setIsMyListActive(true);
+  };
+
+  const closeMyList = () => {
+    setIsMyListActive(false);
+  };
 
   return (
     <>
       <div className="home">
-        <div className={`home-screen ${movieId == "" ? "" : "inactive"}`}>
-          <Navbar />
+        <div
+          className={`home-screen ${
+            movieId == "" && !isMyListActive ? "" : "inactive"
+          }`}
+        >
+          <Navbar handleMyList={openMyList} />
           <Carousel setMovieId={setMovieId} />
           <MoviesSection
             sectionTitle="Latest Release"
@@ -83,6 +97,7 @@ function Home() {
         {movieId != "" && (
           <MoviePage movieId={movieId} setMovieId={setMovieId} />
         )}
+        {isMyListActive && <MyListPage closeMyList={closeMyList} />}
       </div>
     </>
   );

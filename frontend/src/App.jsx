@@ -6,7 +6,7 @@ import Signup from "./Signup";
 
 function App() {
   const [currentForm, setCurrentForm] = useState("Login");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const toggleForm = (formName) => {
     setCurrentForm(formName);

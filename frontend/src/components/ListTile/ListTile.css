@@ -1,0 +1,20 @@
+.list-tile {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0.5rem;
+  padding: 0.5rem;
+  width: 90%;
+  background-color: rgb(68, 68, 68, 0.4);
+  border-radius: 0.5rem;
+}
+
+.list-tile-image {
+  height: 6rem;
+  margin: 0.1rem;
+  margin-right: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.list-tile-title {
+  font-size: 150%;
+}

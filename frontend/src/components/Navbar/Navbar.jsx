@@ -1,6 +1,6 @@
 import "./Navbar.css";
 
-function Navbar() {
+function Navbar({ handleMyList }) {
   return (
     <div className="navbar">
       <div className="nav-container">
@@ -10,16 +10,16 @@ function Navbar() {
 
         <ul className="nav-links">
           <li className="nav-link">
-            <a href="#"> Home </a>
+            <p> Home </p>
           </li>
           <li className="nav-link">
-            <a href="#"> TV Shows </a>
+            <p> TV Shows </p>
           </li>
           <li className="nav-link">
-            <a href="#"> Movies </a>
+            <p> Movies </p>
           </li>
           <li className="nav-link">
-            <a href="#"> My List </a>
+            <p onClick={handleMyList}> My List </p>
           </li>
         </ul>
       </div>
