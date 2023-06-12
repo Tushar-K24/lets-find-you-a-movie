@@ -1,6 +1,6 @@
 import "./Navbar.css";
 
-function Navbar({ handleMyList }) {
+function Navbar({ handleFavourites, handleMyList }) {
   return (
     <div className="navbar">
       <div className="nav-container">
@@ -13,10 +13,7 @@ function Navbar({ handleMyList }) {
             <p> Home </p>
           </li>
           <li className="nav-link">
-            <p> TV Shows </p>
-          </li>
-          <li className="nav-link">
-            <p> Movies </p>
+            <p onClick={handleFavourites}> Favourites </p>
           </li>
           <li className="nav-link">
             <p onClick={handleMyList}> My List </p>

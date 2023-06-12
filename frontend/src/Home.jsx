@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer";
 import MoviesSection from "./components/MoviesSection/MoviesSection";
 import MoviePage from "./components/MoviePage/MoviePage";
 import MyListPage from "./components/MyList/MyListPage";
+import FavouritesPage from "./components/FavouritesPage/FavouritesPage";
 import { useState } from "react";
 
 const movies = [
@@ -63,7 +64,9 @@ const movies = [
 function Home() {
   const [movieId, setMovieId] = useState("");
   const [isMyListActive, setIsMyListActive] = useState(false);
+  const [isFavouritesActive, setIsFavouritesActive] = useState(true);
 
+  //My List Page handlers
   const openMyList = () => {
     setIsMyListActive(true);
   };
@@ -72,15 +75,26 @@ function Home() {
     setIsMyListActive(false);
   };
 
+  //Favourites Page handlers
+  const openFavourites = () => {
+    setIsFavouritesActive(true);
+  };
+
+  const closeFavourites = () => {
+    setIsFavouritesActive(false);
+  };
+
   return (
     <>
       <div className="home">
         <div
           className={`home-screen ${
-            movieId == "" && !isMyListActive ? "" : "inactive"
+            movieId == "" && !isMyListActive && !isFavouritesActive
+              ? ""
+              : "inactive"
           }`}
         >
-          <Navbar handleMyList={openMyList} />
+          <Navbar handleMyList={openMyList} handleFavourites={openFavourites} />
           <Carousel setMovieId={setMovieId} />
           <MoviesSection
             sectionTitle="Latest Release"
@@ -98,6 +112,9 @@ function Home() {
           <MoviePage movieId={movieId} setMovieId={setMovieId} />
         )}
         {isMyListActive && <MyListPage closeMyList={closeMyList} />}
+        {isFavouritesActive && (
+          <FavouritesPage closeFavouritesPage={closeFavourites} />
+        )}
       </div>
     </>
   );
