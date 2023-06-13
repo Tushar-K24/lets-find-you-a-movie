@@ -64,7 +64,7 @@ const movies = [
 function Home() {
   const [movieId, setMovieId] = useState("");
   const [isMyListActive, setIsMyListActive] = useState(false);
-  const [isFavouritesActive, setIsFavouritesActive] = useState(true);
+  const [isFavouritesActive, setIsFavouritesActive] = useState(false);
 
   //My List Page handlers
   const openMyList = () => {
