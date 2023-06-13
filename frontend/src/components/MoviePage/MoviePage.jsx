@@ -98,7 +98,7 @@ const movie = {
   vote_count: 26519,
 };
 
-function MoviePage({ movieId, setMovieId }) {
+function MoviePage({ movieId, handleCloseClick }) {
   //set background image
   const style = {
     backgroundImage: "url(" + baseUrl + movie.backdrop_path + ")",
@@ -111,11 +111,6 @@ function MoviePage({ movieId, setMovieId }) {
   });
 
   genre = genre.substring(0, genre.length - 2);
-
-  //handle close event
-  function handleCloseClick() {
-    setMovieId("");
-  }
 
   return (
     <div className="movie-page">

@@ -4,7 +4,7 @@ import MovieCard from "../MovieCard/MovieCard";
 import { ReactComponent as PrevBtn } from "../../assets/prev.svg";
 import { ReactComponent as NextBtn } from "../../assets/next.svg";
 
-function MoviesSection({ sectionTitle, movies, setMovieId }) {
+function MoviesSection({ sectionTitle, movies }) {
   //offset for the movie cards displayed
   const [offset, setOffset] = useState(0);
   const nextSlide = () => {
@@ -47,7 +47,6 @@ function MoviesSection({ sectionTitle, movies, setMovieId }) {
             movieId={movie.id}
             title={movie.title}
             imgUrl={movie.poster_path}
-            setMovieId={setMovieId}
           />
         ))}
         <button

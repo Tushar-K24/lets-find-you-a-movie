@@ -62,7 +62,6 @@ const movies = [
 ];
 
 function Home() {
-  const [movieId, setMovieId] = useState("");
   const [isMyListActive, setIsMyListActive] = useState(false);
   const [isFavouritesActive, setIsFavouritesActive] = useState(false);
 
@@ -89,28 +88,15 @@ function Home() {
       <div className="home">
         <div
           className={`home-screen ${
-            movieId == "" && !isMyListActive && !isFavouritesActive
-              ? ""
-              : "inactive"
+            !isMyListActive && !isFavouritesActive ? "" : "inactive"
           }`}
         >
           <Navbar handleMyList={openMyList} handleFavourites={openFavourites} />
-          <Carousel setMovieId={setMovieId} />
-          <MoviesSection
-            sectionTitle="Latest Release"
-            movies={movies}
-            setMovieId={setMovieId}
-          />
-          <MoviesSection
-            sectionTitle="Recommended For You"
-            movies={movies}
-            setMovieId={setMovieId}
-          />
+          <Carousel />
+          <MoviesSection sectionTitle="Latest Release" movies={movies} />
+          <MoviesSection sectionTitle="Recommended For You" movies={movies} />
           <Footer />
         </div>
-        {movieId != "" && (
-          <MoviePage movieId={movieId} setMovieId={setMovieId} />
-        )}
         {isMyListActive && <MyListPage closeMyList={closeMyList} />}
         {isFavouritesActive && (
           <FavouritesPage closeFavouritesPage={closeFavourites} />
