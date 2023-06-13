@@ -35,7 +35,7 @@ const lists = [
   },
 ];
 
-function MyListPage({ closeMyList }) {
+function MyListPage({ setMovieId, closeMyList }) {
   return (
     <div className="list-page-container">
       <button className="close-btn" onClick={closeMyList}>
@@ -53,8 +53,10 @@ function MyListPage({ closeMyList }) {
         {lists.map((list) => (
           <ListTile
             key={list.listID}
+            listId={list.listID}
             imageUrl={list.imageUrl}
             name={list.name}
+            setMovieId={setMovieId}
           />
         ))}
       </div>

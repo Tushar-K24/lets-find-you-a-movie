@@ -111,9 +111,14 @@ function Home() {
         {movieId != "" && (
           <MoviePage movieId={movieId} setMovieId={setMovieId} />
         )}
-        {isMyListActive && <MyListPage closeMyList={closeMyList} />}
+        {isMyListActive && (
+          <MyListPage setMovieId={setMovieId} closeMyList={closeMyList} />
+        )}
         {isFavouritesActive && (
-          <FavouritesPage closeFavouritesPage={closeFavourites} />
+          <FavouritesPage
+            setMovieId={setMovieId}
+            closeFavouritesPage={closeFavourites}
+          />
         )}
       </div>
     </>
