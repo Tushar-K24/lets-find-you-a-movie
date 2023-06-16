@@ -1,5 +1,6 @@
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
+const { config } = require("dotenv");
 const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
@@ -26,9 +27,18 @@ const login = async (req, res) => {
     if (user) {
       await bcrypt.compare(password, user.password).then((isEquals) => {
         if (isEquals) {
+          //create jwt token
+          const accessToken = jwt.sign(
+            {
+              user: user,
+            },
+            process.env.ACCESS_TOKEN_KEY,
+            { expiresIn: config.accessTokenExpiry }
+          );
           res.status(200).json({
             message: "Credentials matched successfully",
             user: user._id,
+            accessToken: accessToken,
           });
         } else {
           res.status(403).json({ message: "Invalid credentials" });
