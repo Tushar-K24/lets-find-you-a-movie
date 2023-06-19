@@ -69,6 +69,7 @@ const deleteList = async (req, res) => {
   try {
     const { userID, listName } = req.params;
     await List.findOneAndDelete({ name: listName, createdUser: userID });
+    res.status(200).json({message: "List deleted successfully"});
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
