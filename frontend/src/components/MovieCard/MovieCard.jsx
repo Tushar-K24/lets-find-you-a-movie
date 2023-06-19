@@ -8,12 +8,13 @@ function MovieCard({ movieId, title, imgUrl }) {
   const [isMoviePageActive, setIsMoviePageActive] = useState(false);
   const handleMovieCardClick = () => {
     setIsMoviePageActive(true);
-    document.body.classList.add("inactive");
+    document.querySelector(".home").classList.add("inactive");
+    document.querySelector(".xyz").classList.add("active");
   };
 
   const handleCloseMovieCardClick = () => {
     setIsMoviePageActive(false);
-    document.body.classList.remove("inactive");
+    document.querySelector(".home").classList.remove("inactive");
   };
 
   return (
@@ -28,12 +29,14 @@ function MovieCard({ movieId, title, imgUrl }) {
           <p className="movie-card-title">{title}</p>
         </button>
       </div>
-      {isMoviePageActive && (
-        <MoviePage
-          movieId={movieId}
-          handleCloseClick={handleCloseMovieCardClick}
-        />
-      )}
+      <div className="xyz">
+        {isMoviePageActive && (
+          <MoviePage
+            movieId={movieId}
+            handleCloseClick={handleCloseMovieCardClick}
+          />
+        )}
+      </div>
     </>
   );
 }
