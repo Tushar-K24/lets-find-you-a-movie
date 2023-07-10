@@ -81,6 +81,8 @@ function Home() {
           <MoviesSection sectionTitle="Recommended For You" movies={movies} />
           <Footer />
         </div>
+
+        <div id="home-overlay" />
       </div>
     </>
   );

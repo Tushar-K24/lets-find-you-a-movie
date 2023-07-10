@@ -8,12 +8,10 @@
   z-index: 1;
 }
 
-.inactive {
-  opacity: 0.1;
-  pointer-events: none;
-}
-
 .active {
-  opacity: 1;
-  pointer-events: all;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(20, 20, 20, 0.8);
+  z-index: 1;
 }

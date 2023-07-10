@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Carousel.css";
+import { imageBaseUrl } from "../../config";
 import { ReactComponent as PrevBtn } from "../../assets/prev.svg";
 import { ReactComponent as NextBtn } from "../../assets/next.svg";
 import MoviePage from "../MoviePage/MoviePage";
 
-const baseUrl = "https://image.tmdb.org/t/p/original";
 const movies = [
   {
     id: 550,
@@ -42,19 +42,23 @@ const movies = [
   },
 ];
 
+function generateGenreString(genreList) {
+  let genre = "";
+  genreList.forEach((g) => {
+    genre += g.name + " | ";
+  });
+  return genre.substring(0, genre.length - 2);
+}
+
 function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMoviePageActive, setIsMoviePageActive] = useState(false);
-  let genre = "";
-  movies[currentIndex].genres.forEach((g) => {
-    genre += g.name + " | ";
-  });
 
-  genre = genre.substring(0, genre.length - 2);
+  let genre = generateGenreString(movies[currentIndex].genres);
+  const backdropUrl = imageBaseUrl + movies[currentIndex].backdrop_path;
 
   const style = {
-    backgroundImage:
-      "url(" + baseUrl + movies[currentIndex].backdrop_path + ")",
+    backgroundImage: "url(" + backdropUrl + ")",
   };
 
   const nextSlide = () => {
@@ -71,12 +75,12 @@ function Carousel() {
 
   const handleCarouselClick = () => {
     setIsMoviePageActive(true);
-    document.body.classList.add("inactive");
+    // document.querySelector("#home-overlay").classList.add("active");
   };
 
   const handleCloseCarouselClick = () => {
     setIsMoviePageActive(false);
-    document.body.classList.remove("inactive");
+    // document.querySelector("#home-overlay").classList.remove("active");
   };
   return (
     <>
