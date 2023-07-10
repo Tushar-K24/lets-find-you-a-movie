@@ -1,12 +1,13 @@
 import "./Home.css";
-import Carousel from "./components/Carousel/Carousel";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
-import MoviesSection from "./components/MoviesSection/MoviesSection";
-import MoviePage from "./components/MoviePage/MoviePage";
-import MyListPage from "./components/MyList/MyListPage";
-import FavouritesPage from "./components/FavouritesPage/FavouritesPage";
+import Carousel from "../../components/Carousel/Carousel";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+import MoviesSection from "../../components/MoviesSection/MoviesSection";
+import MoviePage from "../../components/MoviePage/MoviePage";
+import MyListPage from "../../components/MyList/MyListPage";
+import FavouritesPage from "../../components/FavouritesPage/FavouritesPage";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const movies = [
   {
@@ -62,45 +63,24 @@ const movies = [
 ];
 
 function Home() {
-  const [isMyListActive, setIsMyListActive] = useState(false);
-  const [isFavouritesActive, setIsFavouritesActive] = useState(false);
-
-  //My List Page handlers
-  const openMyList = () => {
-    setIsMyListActive(true);
-  };
-
-  const closeMyList = () => {
-    setIsMyListActive(false);
-  };
-
-  //Favourites Page handlers
-  const openFavourites = () => {
-    setIsFavouritesActive(true);
-  };
-
-  const closeFavourites = () => {
-    setIsFavouritesActive(false);
-  };
+  //nav bar
+  const navTitle = "Let's Find You A Movie";
+  const navLinks = [
+    <Link to="/home"> Home </Link>,
+    <Link to="/home"> Favourites </Link>,
+    <Link to="/home"> My List </Link>,
+  ];
 
   return (
     <>
       <div className="home">
-        <div
-          className={`home-screen ${
-            !isMyListActive && !isFavouritesActive ? "" : "inactive"
-          }`}
-        >
-          <Navbar handleMyList={openMyList} handleFavourites={openFavourites} />
+        <div className="home-screen">
+          <Navbar title={navTitle} links={navLinks} />
           <Carousel />
           <MoviesSection sectionTitle="Latest Release" movies={movies} />
           <MoviesSection sectionTitle="Recommended For You" movies={movies} />
           <Footer />
         </div>
-        {isMyListActive && <MyListPage closeMyList={closeMyList} />}
-        {isFavouritesActive && (
-          <FavouritesPage closeFavouritesPage={closeFavourites} />
-        )}
       </div>
     </>
   );
