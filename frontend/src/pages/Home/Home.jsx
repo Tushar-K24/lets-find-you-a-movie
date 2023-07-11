@@ -3,11 +3,8 @@ import Carousel from "../../components/Carousel/Carousel";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import MoviesSection from "../../components/MoviesSection/MoviesSection";
-import MoviePage from "../../components/MoviePage/MoviePage";
-import MyListPage from "../../components/MyList/MyListPage";
-import FavouritesPage from "../../components/FavouritesPage/FavouritesPage";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import MovieCard from "../../components/MovieCard/MovieCard";
 
 const movies = [
   {
@@ -71,14 +68,30 @@ function Home() {
     <Link to="/home"> My List </Link>,
   ];
 
+  //movie section
+  const movieCardList = movies.map((movie) => (
+    <MovieCard
+      key={movie.id}
+      movieId={movie.id}
+      title={movie.title}
+      imgUrl={movie.poster_path}
+    />
+  ));
+
   return (
     <>
       <div className="home">
         <div className="home-screen">
           <Navbar title={navTitle} links={navLinks} />
           <Carousel />
-          <MoviesSection sectionTitle="Latest Release" movies={movies} />
-          <MoviesSection sectionTitle="Recommended For You" movies={movies} />
+          <MoviesSection
+            sectionTitle="Latest Release"
+            sectionItems={movieCardList}
+          />
+          <MoviesSection
+            sectionTitle="Recommended For You"
+            sectionItems={movieCardList}
+          />
           <Footer />
         </div>
 

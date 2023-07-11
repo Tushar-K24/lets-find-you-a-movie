@@ -3,7 +3,7 @@ import "./Carousel.css";
 import { imageBaseUrl } from "../../config";
 import { ReactComponent as PrevBtn } from "../../assets/prev.svg";
 import { ReactComponent as NextBtn } from "../../assets/next.svg";
-import MoviePage from "../MoviePage/MoviePage";
+import MovieModal from "../MovieModal/MovieModal";
 
 const movies = [
   {
@@ -102,7 +102,7 @@ function Carousel() {
         <div style={style} className="carousel-blurred-image" />
       </div>
       {isMoviePageActive && (
-        <MoviePage
+        <MovieModal
           movieId={movies[currentIndex].id}
           handleCloseClick={handleCloseCarouselClick}
         />

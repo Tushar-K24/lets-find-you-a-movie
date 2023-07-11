@@ -1,4 +1,4 @@
-import "./MoviePage.css";
+import "./MovieModal.css";
 import { ReactComponent as Close } from "../../assets/close.svg";
 
 const baseUrl = "https://image.tmdb.org/t/p/original";
@@ -98,7 +98,7 @@ const movie = {
   vote_count: 26519,
 };
 
-function MoviePage({ movieId, handleCloseClick }) {
+function MovieModal({ movieId, handleCloseClick }) {
   //set background image
   const style = {
     backgroundImage: "url(" + baseUrl + movie.backdrop_path + ")",
@@ -145,4 +145,4 @@ function MoviePage({ movieId, handleCloseClick }) {
   );
 }
 
-export default MoviePage;
+export default MovieModal;
