@@ -1,7 +1,9 @@
 import "./MovieModal.css";
+import { imageBaseUrl } from "../../config";
 import { ReactComponent as Close } from "../../assets/close.svg";
+import { IconHeart, IconPlaylistAdd } from "@tabler/icons-react";
+import { useState } from "react";
 
-const baseUrl = "https://image.tmdb.org/t/p/original";
 const movie = {
   adult: false,
   backdrop_path: "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
@@ -98,19 +100,28 @@ const movie = {
   vote_count: 26519,
 };
 
+function generateGenreString(genres) {
+  let genre = "";
+  genres.forEach((g) => {
+    genre += g.name + ", ";
+  });
+  return genre.substring(0, genre.length - 2);
+}
+
 function MovieModal({ movieId, handleCloseClick }) {
   //set background image
+  const [isHeartClicked, setIsHeartClicked] = useState(false);
+  const backdropUrl = imageBaseUrl + movie.backdrop_path;
   const style = {
-    backgroundImage: "url(" + baseUrl + movie.backdrop_path + ")",
+    backgroundImage: "url(" + backdropUrl + ")",
   };
 
   //extract genre as string
-  let genre = "";
-  movie.genres.forEach((g) => {
-    genre += g.name + ", ";
-  });
+  const genre = generateGenreString(movie.genres);
 
-  genre = genre.substring(0, genre.length - 2);
+  const handleHeartClick = () => {
+    setIsHeartClicked(!isHeartClicked);
+  };
 
   return (
     <div className="movie-modal">
@@ -122,6 +133,18 @@ function MovieModal({ movieId, handleCloseClick }) {
           <div className="movie-modal-header-desc">
             <h1>{movie.title}</h1>
             <p>{movie.tagline}</p>
+            <div className="modal-buttons">
+              <IconHeart
+                className={isHeartClicked ? "active-heart" : ""}
+                width={"2rem"}
+                height={"2rem"}
+                fill={isHeartClicked ? "#e50914" : "false"}
+                onMouseEnter={open}
+                onMouseLeave={close}
+                onClick={handleHeartClick}
+              />
+              <IconPlaylistAdd width={"2rem"} height={"2rem"} />
+            </div>
           </div>
         </div>
       </div>

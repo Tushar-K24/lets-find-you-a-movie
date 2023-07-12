@@ -16,7 +16,7 @@ span {
 
 .movie-modal-content {
   display: flex;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
 }
 
 .movie-modal-desc {
@@ -42,7 +42,7 @@ span {
 }
 
 #header-title {
-  margin-top: 1.5rem;
+  margin-top: 3rem;
   margin-bottom: 0.5rem;
   padding: 0 2rem;
 }
@@ -66,4 +66,13 @@ span {
 
 .movie-modal-header-desc {
   padding: 2rem 3rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.active-heart {
+  color: #e50914;
 }
