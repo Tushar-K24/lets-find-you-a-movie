@@ -1,0 +1,14 @@
+.favourites-page-container {
+  padding: 6rem 2rem;
+  width: 94vw;
+}
+
+.favourites-page-title {
+  font-size: 3rem;
+}
+
+.favourites-page-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

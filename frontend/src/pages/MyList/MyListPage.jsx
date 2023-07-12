@@ -1,6 +1,5 @@
-import { ReactComponent as Close } from "../../assets/close.svg";
 import "./MyListPage.css";
-import ListTile from "../ListTile/ListTile";
+import ListTile from "../../components/ListTile/ListTile";
 
 const lists = [
   {
@@ -35,28 +34,23 @@ const lists = [
   },
 ];
 
-function MyListPage({ setMovieId, closeMyList }) {
+function MyListPage() {
   return (
     <div className="list-page-container">
-      <button className="close-btn" onClick={closeMyList}>
-        <Close className="close-logo" />
-      </button>
-      <h1 id="list-page-title">My Lists</h1>
-      <div className="create-list-container">
-        <form>
-          <input type="text" placeholder="Create new..." />
-          <button type="submit">Create</button>
-        </form>
-      </div>
+      <h1 className="list-page-title">My List</h1>
       <hr />
+      <div className="create-list-container">
+        <input type="text" placeholder="Create new list" />
+        <button type="submit">Create</button>
+      </div>
       <div className="show-list-container">
+        <h1 className="show-list-title">Lists</h1>
+
         {lists.map((list) => (
           <ListTile
             key={list.listID}
-            listId={list.listID}
             imageUrl={list.imageUrl}
             name={list.name}
-            setMovieId={setMovieId}
           />
         ))}
       </div>

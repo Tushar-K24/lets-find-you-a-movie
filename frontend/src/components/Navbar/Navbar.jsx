@@ -1,23 +1,18 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar({ handleFavourites, handleMyList }) {
+function Navbar({ title, links }) {
   return (
     <div className="navbar">
       <div className="nav-container">
-        <a className="nav-logo" href="/">
-          Let's Find You A Movie
-        </a>
+        <Link className="nav-logo" to="/home">
+          {title}
+        </Link>
 
         <ul className="nav-links">
-          <li className="nav-link">
-            <p> Home </p>
-          </li>
-          <li className="nav-link">
-            <p onClick={handleFavourites}> Favourites </p>
-          </li>
-          <li className="nav-link">
-            <p onClick={handleMyList}> My List </p>
-          </li>
+          {links.map((link) => (
+            <li className="nav-link">{link}</li>
+          ))}
         </ul>
       </div>
     </div>

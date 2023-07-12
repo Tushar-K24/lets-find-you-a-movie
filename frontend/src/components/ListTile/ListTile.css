@@ -1,11 +1,11 @@
 .list-tile {
   display: flex;
   align-items: center;
-  margin: 1rem 0.5rem;
   padding: 0.5rem;
-  width: 90%;
   background-color: rgb(68, 68, 68, 0.4);
   border-radius: 0.5rem;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .list-tile-image {

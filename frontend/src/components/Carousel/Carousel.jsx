@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./Carousel.css";
+import { imageBaseUrl } from "../../config";
 import { ReactComponent as PrevBtn } from "../../assets/prev.svg";
 import { ReactComponent as NextBtn } from "../../assets/next.svg";
+import MovieModal from "../MovieModal/MovieModal";
 
-const baseUrl = "https://image.tmdb.org/t/p/original";
 const movies = [
   {
     id: 550,
@@ -41,19 +42,23 @@ const movies = [
   },
 ];
 
-function Carousel({ setMovieId }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
+function generateGenreString(genreList) {
   let genre = "";
-  movies[currentIndex].genres.forEach((g) => {
+  genreList.forEach((g) => {
     genre += g.name + " | ";
   });
+  return genre.substring(0, genre.length - 2);
+}
 
-  genre = genre.substring(0, genre.length - 2);
+function Carousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMoviePageActive, setIsMoviePageActive] = useState(false);
+
+  let genre = generateGenreString(movies[currentIndex].genres);
+  const backdropUrl = imageBaseUrl + movies[currentIndex].backdrop_path;
 
   const style = {
-    backgroundImage:
-      "url(" + baseUrl + movies[currentIndex].backdrop_path + ")",
+    backgroundImage: "url(" + backdropUrl + ")",
   };
 
   const nextSlide = () => {
@@ -68,28 +73,41 @@ function Carousel({ setMovieId }) {
     );
   };
 
-  function handleCarouselClick() {
-    setMovieId(movies[currentIndex].id);
-  }
+  const handleCarouselClick = () => {
+    setIsMoviePageActive(true);
+    // document.querySelector("#home-overlay").classList.add("active");
+  };
 
+  const handleCloseCarouselClick = () => {
+    setIsMoviePageActive(false);
+    // document.querySelector("#home-overlay").classList.remove("active");
+  };
   return (
-    <div style={style} className="carousel">
-      <div className="carousel-container">
-        <button className="carousel-button" onClick={prevSlide}>
-          <PrevBtn fill="rgb(255,255,255,0.8)" />
-        </button>
-        <div onClick={handleCarouselClick} className="carousel-content">
-          <div className="carousel-desc">
-            <h1>{movies[currentIndex].title}</h1>
-            <p>{genre}</p>
+    <>
+      <div style={style} className="carousel">
+        <div className="carousel-container">
+          <button className="carousel-button" onClick={prevSlide}>
+            <PrevBtn fill="rgb(255,255,255,0.8)" />
+          </button>
+          <div onClick={handleCarouselClick} className="carousel-content">
+            <div className="carousel-desc">
+              <h1>{movies[currentIndex].title}</h1>
+              <p>{genre}</p>
+            </div>
           </div>
+          <button className="carousel-button" onClick={nextSlide}>
+            <NextBtn fill="rgb(255,255,255,0.8)" />
+          </button>
         </div>
-        <button className="carousel-button" onClick={nextSlide}>
-          <NextBtn fill="rgb(255,255,255,0.8)" />
-        </button>
+        <div style={style} className="carousel-blurred-image" />
       </div>
-      <div style={style} className="carousel-blurred-image" />
-    </div>
+      {isMoviePageActive && (
+        <MovieModal
+          movieId={movies[currentIndex].id}
+          handleCloseClick={handleCloseCarouselClick}
+        />
+      )}
+    </>
   );
 }
 

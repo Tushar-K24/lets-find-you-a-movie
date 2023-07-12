@@ -14,28 +14,28 @@ span {
   fill: rgb(255, 255, 255, 0.5);
 }
 
-.movie-content {
+.movie-modal-content {
   display: flex;
   padding: 0 2rem;
 }
 
-.movie-desc {
+.movie-modal-desc {
   flex-shrink: 3;
   margin-right: 2rem;
 }
 
-.movie-meta {
+.movie-modal-meta {
   margin-left: 2rem;
 }
 
-.movie-page {
+.movie-modal {
   border-radius: 0.6rem;
   width: 48rem;
   position: fixed;
   display: block;
   left: 0;
   right: 0;
-  top: 4rem;
+  top: 6rem;
   margin: 0 auto;
   background-color: #101010;
   z-index: 3;
@@ -47,7 +47,7 @@ span {
   padding: 0 2rem;
 }
 
-.movie-header {
+.movie-modal-header {
   height: 27rem;
   position: relative;
   background-size: contain;
@@ -57,14 +57,13 @@ span {
   overflow: hidden;
 }
 
-.movie-header-content {
+.movie-modal-header-content {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: end; */
 }
 
-.movie-header-desc {
+.movie-modal-header-desc {
   padding: 2rem 3rem;
 }

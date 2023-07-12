@@ -1,22 +1,18 @@
 import { useState } from "react";
 import "./MoviesSection.css";
-import MovieCard from "../MovieCard/MovieCard";
 import { ReactComponent as PrevBtn } from "../../assets/prev.svg";
 import { ReactComponent as NextBtn } from "../../assets/next.svg";
 
-function MoviesSection({ sectionTitle, movies, setMovieId }) {
+function MoviesSection({ sectionTitle, sectionItems }) {
   //offset for the movie cards displayed
+  const numItems = sectionItems.length;
   const [offset, setOffset] = useState(0);
   const nextSlide = () => {
-    setOffset((prevIndex) =>
-      prevIndex === movies.length - 1 ? 0 : prevIndex + 1
-    );
+    setOffset((prevIndex) => (prevIndex === numItems - 1 ? 0 : prevIndex + 1));
   };
 
   const prevSlide = () => {
-    setOffset((prevIndex) =>
-      prevIndex === 0 ? movies.length - 1 : prevIndex - 1
-    );
+    setOffset((prevIndex) => (prevIndex === 0 ? numItems - 1 : prevIndex - 1));
   };
 
   //set when the section row is hovered over (to display slider buttons)
@@ -30,7 +26,7 @@ function MoviesSection({ sectionTitle, movies, setMovieId }) {
   };
 
   const numCardsPerPage = 8;
-  const cardEndIndex = Math.min((offset + 1) * numCardsPerPage, movies.length);
+  const cardEndIndex = Math.min((offset + 1) * numCardsPerPage, numItems);
   const cardStartIndex = cardEndIndex - numCardsPerPage;
 
   return (
@@ -41,15 +37,7 @@ function MoviesSection({ sectionTitle, movies, setMovieId }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {movies.slice(cardStartIndex, cardEndIndex).map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movieId={movie.id}
-            title={movie.title}
-            imgUrl={movie.poster_path}
-            setMovieId={setMovieId}
-          />
-        ))}
+        {...sectionItems.slice(cardStartIndex, cardEndIndex)}
         <button
           className={`section-btn ${
             isRowHovered && cardStartIndex > 0 ? "" : "hidden"
@@ -61,7 +49,7 @@ function MoviesSection({ sectionTitle, movies, setMovieId }) {
         </button>
         <button
           className={`section-btn ${
-            isRowHovered && cardEndIndex < movies.length ? "" : "hidden"
+            isRowHovered && cardEndIndex < numItems ? "" : "hidden"
           }`}
           id="btn-right"
           onClick={nextSlide}

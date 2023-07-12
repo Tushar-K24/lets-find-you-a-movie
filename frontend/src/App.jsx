@@ -1,31 +1,22 @@
-import { useState } from "react";
 import "./App.css";
-import Home from "./Home";
-import Login from "./Login";
-import Signup from "./Signup";
+import Login from "./pages/Auth/Login";
+import Signup from "./pages/Auth/Signup";
+
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import HomeRoute from "./pages/Home/HomeRoute";
 
 function App() {
-  const [currentForm, setCurrentForm] = useState("Login");
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  };
-
   return (
-    <>
-      {isAuthenticated ? (
-        <Home />
-      ) : (
-        <div className="auth-screen">
-          {currentForm == "Login" ? (
-            <Login toggleForm={toggleForm} />
-          ) : (
-            <Signup toggleForm={toggleForm} />
-          )}
-        </div>
-      )}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*">
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Signup />} />
+          <Route path="home/*" element={<HomeRoute />} />
+          <Route path="" element={<Navigate to="home" />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

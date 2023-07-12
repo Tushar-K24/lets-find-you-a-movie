@@ -1,0 +1,17 @@
+.home {
+  position: relative;
+}
+
+.home-screen {
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.active {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(20, 20, 20, 0.8);
+  z-index: 1;
+}

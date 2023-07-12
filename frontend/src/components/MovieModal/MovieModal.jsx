@@ -1,4 +1,4 @@
-import "./MoviePage.css";
+import "./MovieModal.css";
 import { ReactComponent as Close } from "../../assets/close.svg";
 
 const baseUrl = "https://image.tmdb.org/t/p/original";
@@ -98,7 +98,7 @@ const movie = {
   vote_count: 26519,
 };
 
-function MoviePage({ movieId, setMovieId }) {
+function MovieModal({ movieId, handleCloseClick }) {
   //set background image
   const style = {
     backgroundImage: "url(" + baseUrl + movie.backdrop_path + ")",
@@ -112,32 +112,27 @@ function MoviePage({ movieId, setMovieId }) {
 
   genre = genre.substring(0, genre.length - 2);
 
-  //handle close event
-  function handleCloseClick() {
-    setMovieId("");
-  }
-
   return (
-    <div className="movie-page">
-      <div style={style} className="movie-header">
-        <div className="movie-header-content">
+    <div className="movie-modal">
+      <div style={style} className="movie-modal-header">
+        <div className="movie-modal-header-content">
           <button className="close-btn" onClick={handleCloseClick}>
             <Close className="close-logo" />
           </button>
-          <div className="movie-header-desc">
+          <div className="movie-modal-header-desc">
             <h1>{movie.title}</h1>
             <p>{movie.tagline}</p>
           </div>
         </div>
       </div>
       <h1 id="header-title">Description</h1>
-      <div className="movie-content">
-        <div className="movie-desc">
+      <div className="movie-modal-content">
+        <div className="movie-modal-desc">
           <p>
             <span>{movie.overview}</span>
           </p>
         </div>
-        <div className="movie-meta">
+        <div className="movie-modal-meta">
           <p>
             Release: <span>{movie.release_date}</span>
           </p>
@@ -150,4 +145,4 @@ function MoviePage({ movieId, setMovieId }) {
   );
 }
 
-export default MoviePage;
+export default MovieModal;
