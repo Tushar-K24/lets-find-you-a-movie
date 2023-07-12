@@ -1,18 +1,3 @@
-<<<<<<< HEAD:frontend/src/components/FavouritesPage/FavouritesPage.jsx
-import MoviesPopup from "../MoviesPopup/MoviesPopup";
-import "./FavouritesPage.css";
-
-const favouritesId = "";
-function FavouritesPage({ setMovieId, closeFavouritesPage }) {
-  return (
-    <MoviesPopup
-      listId={favouritesId}
-      title={"Favourites"}
-      setMovieId={setMovieId}
-      closeMoviesPage={closeFavouritesPage}
-    />
-  );
-=======
 import MovieCard from "../../components/MovieCard/MovieCard";
 import PageLayout from "../PageLayout/PageLayout";
 
@@ -80,7 +65,6 @@ function FavouritesPage() {
     />
   ));
   return <PageLayout title={"Favourites"} movieList={movieList} />;
->>>>>>> refactor:frontend/src/pages/FavouritesPage/FavouritesPage.jsx
 }
 
 export default FavouritesPage;
