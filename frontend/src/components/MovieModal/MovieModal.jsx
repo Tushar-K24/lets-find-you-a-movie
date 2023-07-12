@@ -113,26 +113,26 @@ function MovieModal({ movieId, handleCloseClick }) {
   genre = genre.substring(0, genre.length - 2);
 
   return (
-    <div className="movie-page">
-      <div style={style} className="movie-header">
-        <div className="movie-header-content">
+    <div className="movie-modal">
+      <div style={style} className="movie-modal-header">
+        <div className="movie-modal-header-content">
           <button className="close-btn" onClick={handleCloseClick}>
             <Close className="close-logo" />
           </button>
-          <div className="movie-header-desc">
+          <div className="movie-modal-header-desc">
             <h1>{movie.title}</h1>
             <p>{movie.tagline}</p>
           </div>
         </div>
       </div>
       <h1 id="header-title">Description</h1>
-      <div className="movie-content">
-        <div className="movie-desc">
+      <div className="movie-modal-content">
+        <div className="movie-modal-desc">
           <p>
             <span>{movie.overview}</span>
           </p>
         </div>
-        <div className="movie-meta">
+        <div className="movie-modal-meta">
           <p>
             Release: <span>{movie.release_date}</span>
           </p>

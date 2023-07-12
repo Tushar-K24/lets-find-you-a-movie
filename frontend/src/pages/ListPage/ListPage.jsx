@@ -1,11 +1,8 @@
-import "./Home.css";
-import Carousel from "../../components/Carousel/Carousel";
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
-import MoviesSection from "../../components/MoviesSection/MoviesSection";
+import { useParams } from "react-router-dom";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import PageLayout from "../PageLayout/PageLayout";
 
-const movies = [
+const listMovies = [
   {
     id: 1,
     title: "Fight Club",
@@ -58,37 +55,18 @@ const movies = [
   },
 ];
 
-function Home() {
-  //movie section
-  const movieCardList = movies.map((movie) => (
+function ListPage() {
+  const { list } = useParams();
+  const movieList = listMovies.map((movie) => (
     <MovieCard
       key={movie.id}
       movieId={movie.id}
       title={movie.title}
       imgUrl={movie.poster_path}
+      setMovieId={() => {}}
     />
   ));
-
-  return (
-    <>
-      <div className="home">
-        <div className="home-screen">
-          <Carousel />
-          <MoviesSection
-            sectionTitle="Latest Release"
-            sectionItems={movieCardList}
-          />
-          <MoviesSection
-            sectionTitle="Recommended For You"
-            sectionItems={movieCardList}
-          />
-          <Footer />
-        </div>
-
-        <div id="home-overlay" />
-      </div>
-    </>
-  );
+  return <PageLayout title={list} movieList={movieList} />;
 }
 
-export default Home;
+export default ListPage;

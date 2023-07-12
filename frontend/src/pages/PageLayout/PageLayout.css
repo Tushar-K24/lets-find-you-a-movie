@@ -1,0 +1,14 @@
+.page-container {
+  padding: 6rem 2rem;
+  width: 94vw;
+}
+
+.page-title {
+  font-size: 3rem;
+}
+
+.page-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

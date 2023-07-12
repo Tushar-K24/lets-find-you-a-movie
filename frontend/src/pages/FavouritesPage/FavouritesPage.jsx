@@ -1,6 +1,5 @@
-import { ReactComponent as Close } from "../../assets/close.svg";
-import MovieCard from "../MovieCard/MovieCard";
-import "./FavouritesPage.css";
+import MovieCard from "../../components/MovieCard/MovieCard";
+import PageLayout from "../PageLayout/PageLayout";
 
 const favourites = [
   {
@@ -55,29 +54,17 @@ const favourites = [
   },
 ];
 
-function FavouritesPage({ closeFavouritesPage }) {
-  return (
-    <div className="favourites-page-container">
-      <button className="close-btn" onClick={closeFavouritesPage}>
-        <Close className="close-logo" />
-      </button>
-      <h1 className="favourites-page-title">Favourites</h1>
-      <hr />
-      <div className="favourites-page-content">
-        <div className="favourite-movies">
-          {favourites.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movieId={movie.id}
-              title={movie.title}
-              imgUrl={movie.poster_path}
-              setMovieId={() => {}}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+function FavouritesPage() {
+  const movieList = favourites.map((movie) => (
+    <MovieCard
+      key={movie.id}
+      movieId={movie.id}
+      title={movie.title}
+      imgUrl={movie.poster_path}
+      setMovieId={() => {}}
+    />
+  ));
+  return <PageLayout title={"Favourites"} movieList={movieList} />;
 }
 
 export default FavouritesPage;
