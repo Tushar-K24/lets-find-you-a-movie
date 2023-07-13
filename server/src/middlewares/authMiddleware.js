@@ -16,4 +16,16 @@ const jwtAuth = (req, res, next) => {
   }
 };
 
-module.exports = { jwtAuth };
+const checkAdmin = (req, res, next) => {
+  try {
+    const user = req.user.user;
+    if (user.isAdmin == true) {
+      next();
+    } else {
+      res.status(403).json({ message: "Unauthorized Access" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+module.exports = { jwtAuth, checkAdmin };

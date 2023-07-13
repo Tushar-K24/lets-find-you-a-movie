@@ -32,6 +32,7 @@ const movieSchema = new mongoose.Schema({
       ref: "Genre",
     },
   ],
+  tagline: String,
   popularity: Number,
   vote_average: Number,
   vote_count: Number,

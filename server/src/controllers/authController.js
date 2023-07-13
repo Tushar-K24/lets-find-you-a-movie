@@ -41,6 +41,7 @@ const login = async (req, res) => {
           const userJSON = { ...user }._doc;
           delete userJSON.password;
           delete userJSON.__v;
+          delete userJSON.isAdmin;
 
           res.status(200).json({
             message: "Credentials matched successfully",
