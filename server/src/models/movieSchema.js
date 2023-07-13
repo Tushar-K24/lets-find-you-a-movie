@@ -1,11 +1,24 @@
 const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     unique: true,
     required: true,
   },
+  poster_path: {
+    type: String,
+    required: true,
+  },
+  backdrop_path: {
+    type: String,
+    required: true,
+  },
+  adult: {
+    type: Boolean,
+    default: false,
+  },
+  release_date: Date,
   description: {
     type: String,
   },
@@ -15,6 +28,9 @@ const movieSchema = new mongoose.Schema({
       ref: "Genre",
     },
   ],
+  popularity: Number,
+  vote_average: Number,
+  vote_count: Number,
   contentEmbedding: [
     {
       type: Number,
