@@ -1,7 +1,9 @@
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
-const { config } = require("dotenv");
 const jwt = require("jsonwebtoken");
+const config = require("../config");
+
+require("dotenv").config();
 
 const signup = async (req, res) => {
   try {
