@@ -37,9 +37,14 @@ const login = async (req, res) => {
             process.env.ACCESS_TOKEN_KEY,
             { expiresIn: config.accessTokenExpiry }
           );
+
+          const userJSON = { ...user }._doc;
+          delete userJSON.password;
+          delete userJSON.__v;
+
           res.status(200).json({
             message: "Credentials matched successfully",
-            user: user._id,
+            user: user,
             accessToken: accessToken,
           });
         } else {
