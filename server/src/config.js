@@ -1,3 +1,4 @@
 accessTokenExpiry = "1h";
+adminAccessTokenExpiry = "30d";
 
-module.exports = { accessTokenExpiry };
+module.exports = { accessTokenExpiry, adminAccessTokenExpiry };

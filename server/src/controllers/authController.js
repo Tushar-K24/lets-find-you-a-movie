@@ -27,6 +27,11 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (user) {
+      const expiry = {
+        expiresIn: user.isAdmin
+          ? config.adminAccessTokenExpiry
+          : config.accessTokenExpiry,
+      };
       await bcrypt.compare(password, user.password).then((isEquals) => {
         if (isEquals) {
           //create jwt token
@@ -35,7 +40,7 @@ const login = async (req, res) => {
               user: user,
             },
             process.env.ACCESS_TOKEN_KEY,
-            { expiresIn: config.accessTokenExpiry }
+            expiry
           );
 
           const userJSON = { ...user }._doc;
