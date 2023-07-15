@@ -1,4 +1,5 @@
 const Movie = require("../../models/movieSchema");
+const MovieLog = require("../../models/movieLogSchema");
 const Genre = require("../../models/genreSchema");
 
 const getMovies = async (req, res) => {
@@ -45,11 +46,46 @@ const getMovies = async (req, res) => {
       .in([...genreIds])
       .sort(sortBy)
       .limit(limit)
-      .populate({ path: "genre", select: { api_id: 0 } });
+      .populate({ path: "genre", select: { _id: 0 } });
     res.status(200).json({ message: "Movies found", movies });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
 
-module.exports = { getMovies };
+const getMovie = async (req, res) => {
+  /*
+    returns the movie details
+    route: /user/movies/:movieID
+  */
+  try {
+    const { movieID } = req.params;
+    const user = req.user.user;
+    const movie = await Movie.findOne({ _id: movieID });
+    if (movie) {
+      const logExists = await MovieLog.findOne({
+        movie: movie._id,
+        user: user._id,
+      }).count();
+      if (!logExists) {
+        const newMovieLog = new MovieLog({ movie: movie._id, user: user._id });
+        await newMovieLog.save();
+      }
+      const movieLog = await MovieLog.findOne(
+        { movie: movie._id, user: user._id },
+        { user: 0, _id: 0 }
+      ).populate({
+        path: "movie",
+        populate: { path: "genre", select: { _id: 0 } },
+        select: { contentEmbedding: 0 },
+      });
+      res.status(200).json({ message: "Movie found", movieLog });
+    } else {
+      res.status(404).json({ message: "Movie does not exist" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+module.exports = { getMovies, getMovie };
