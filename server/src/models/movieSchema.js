@@ -10,22 +10,14 @@ const movieSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  poster_path: {
-    type: String,
-    required: true,
-  },
-  backdrop_path: {
-    type: String,
-    required: true,
-  },
+  poster_path: String,
+  backdrop_path: String,
   adult: {
     type: Boolean,
     default: false,
   },
   release_date: Date,
-  description: {
-    type: String,
-  },
+  description: String,
   genre: [
     {
       type: mongoose.Schema.Types.ObjectId,

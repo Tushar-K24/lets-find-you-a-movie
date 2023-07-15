@@ -35,10 +35,13 @@ const addList = async (req, res) => {
       res
         .status(405)
         .json({ message: "List already exists", list: existingList });
+    } else {
+      const newList = new List({ name: name, createdUser: user._id });
+      const list = await newList.save();
+      res
+        .status(201)
+        .json({ message: "List created successfully", list: list });
     }
-    const newList = new List({ name: name, createdUser: user._id });
-    const list = await newList.save();
-    res.status(201).json({ message: "List created successfully", list: list });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -56,7 +59,11 @@ const getList = async (req, res) => {
     const list = await List.findOne({
       name: listName,
       createdUser: user._id,
-    }).populate("movies");
+    }).populate({
+      path: "movies",
+      populate: { path: "genre", select: { _id: 0 } },
+      select: { contentEmbedding: 0 },
+    });
     if (list) {
       res.status(200).json({ message: "List found", list: list });
     } else {
@@ -103,13 +110,16 @@ const addMovietoList = async (req, res) => {
     const { movieID } = req.body;
     const movie = await Movie.findOne({ _id: movieID });
     if (movie) {
-      const updatedList = await List.findOneAndUpdate(
+      const updatedLog = await List.updateOne(
         { name: listName, createdUser: user._id },
-        { $push: movie._id },
-        { new: true }
+        { $addToSet: { movies: movie._id } }
       );
-      if (updatedList) {
-        res.status(202).json({ message: "Movie added successfully" });
+      if (updatedLog.matchedCount) {
+        if (updatedLog.modifiedCount) {
+          res.status(202).json({ message: "Movie added successfully" });
+        } else {
+          res.status(200).json({ message: "Movie already exists in the list" });
+        }
       } else {
         res.status(404).json({ message: "List does not exist" });
       }
@@ -131,13 +141,16 @@ const deleteMovieFromList = async (req, res) => {
     const { listName, movieID } = req.params;
     const movie = await Movie.findOne({ _id: movieID });
     if (movie) {
-      const updatedList = await List.findOneAndUpdate(
+      const updatedLog = await List.updateOne(
         { name: listName, createdUser: user._id },
-        { $pull: movie._id },
-        { new: true }
+        { $pull: { movies: movie._id } }
       );
-      if (updatedList) {
-        res.status(202).json({ message: "Movie removed successfully" });
+      if (updatedLog.matchedCount) {
+        if (updatedLog.modifiedCount) {
+          res.status(202).json({ message: "Movie removed successfully" });
+        } else {
+          res.status(200).json({ message: "Movie does not exist in the list" });
+        }
       } else {
         res.status(404).json({ message: "List does not exist" });
       }
