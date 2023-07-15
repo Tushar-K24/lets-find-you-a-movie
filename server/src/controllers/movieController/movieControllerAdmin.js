@@ -101,10 +101,18 @@ const addMovie = async (req, res) => {
       vote_count: vote_count,
       content_embedding: content_embedding,
     };
-
-    const movieData = new Movie(updatedData);
-    const movie = await movieData.save();
-    res.status(201).json({ message: "Movie added successfully", movie });
+    const movieLog = await Movie.updateOne(
+      { api_id: id },
+      { $set: updatedData },
+      { upsert: true }
+    );
+    if (movieLog.upsertedCount) {
+      res.status(201).json({ message: "Movie added successfully" });
+    } else {
+      res.status(202).json({ message: "Movie updated successfully" });
+    }
+    // const movieData = new Movie(updatedData);
+    // const movie = await movieData.save();
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
