@@ -4,7 +4,7 @@ const { getGenres } = require("../../utils/genre");
 const getMovie = async (req, res) => {
   /* 
     returns movie if it exists in database 
-    route: /api/admin/movies/:movieID
+    route: /admin/movies/:movieID
   */
   try {
     const { movieID } = req.params;
@@ -22,7 +22,7 @@ const getMovie = async (req, res) => {
 const updateMovie = async (req, res) => {
   /*
     updates existing data of movie
-    route: /api/admin/movies/:movieID
+    route: /admin/movies/:movieID
     body: {
         popularity: //popularity,
         vote_average: //vote_average,
@@ -60,7 +60,7 @@ const updateMovie = async (req, res) => {
 const addMovie = async (req, res) => {
   /* 
     adds new movie to the database
-    route: /api/admin/movies/add       
+    route: /admin/movies/add       
   */
   try {
     const {
