@@ -1,5 +1,4 @@
 const Genre = require("../models/genreSchema");
-const { updateOne } = require("../models/listSchema");
 
 const getGenres = async (genres) => {
   try {
