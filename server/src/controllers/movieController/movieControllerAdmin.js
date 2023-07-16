@@ -1,6 +1,25 @@
 const Movie = require("../../models/movieSchema");
 const { getGenres } = require("../../utils/genre");
 
+const getMovies = async (req, res) => {
+  /*
+    returns the movie IDs from the list of movie IDs from request that exists in database
+    route: /admin/movies
+    body: {
+      movieIDs: [list of movie IDs to check]
+    }
+  */
+  try {
+    const { movieIDs } = req.body;
+    const movies = await Movie.find({ api_id: { $in: movieIDs } }).distinct(
+      "api_id"
+    );
+    res.status(200).json({ message: "Movies found", movies });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 const getMovie = async (req, res) => {
   /* 
     returns movie if it exists in database 
@@ -117,4 +136,4 @@ const addMovie = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-module.exports = { getMovie, updateMovie, addMovie };
+module.exports = { getMovies, getMovie, updateMovie, addMovie };
