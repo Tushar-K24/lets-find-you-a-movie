@@ -1,6 +1,5 @@
 .movie-card {
-  margin: 0.5rem;
-  width: 10.5rem;
+  width: 11rem;
   height: 23rem;
 }
 
@@ -24,5 +23,4 @@
 .movie-card-title {
   margin-top: 0.6rem;
   font-weight: 600;
-  /* font-size: 16px; */
 }

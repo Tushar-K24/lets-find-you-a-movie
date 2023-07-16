@@ -30,13 +30,13 @@ function MoviesSection({ sectionTitle, sectionItems }) {
   const cardStartIndex = cardEndIndex - numCardsPerPage;
 
   return (
-    <div className="movies-section">
+    <div
+      className="movies-section"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <h1 className="section-title">{sectionTitle}</h1>
-      <div
-        className="section-row"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <div className="section-row">
         {...sectionItems.slice(cardStartIndex, cardEndIndex)}
         <button
           className={`section-btn ${
