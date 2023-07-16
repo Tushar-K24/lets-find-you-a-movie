@@ -1,0 +1,98 @@
+/* #add-list-title {
+  margin-top: -1rem;
+}
+
+.add-list-container {
+  border-radius: 0.6rem;
+  width: 30rem;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  right: 0;
+  top: 8rem;
+  margin: 0 auto;
+  background-color: rgb(16, 16, 16);
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.list-page-container hr {
+  width: 90%;
+  background-color: rgb(255, 255, 255, 0.3);
+  height: 0.5px;
+  border: none;
+}
+
+.show-list-container {
+  width: 90%;
+  height: 20rem;
+  overflow-y: scroll;
+}
+#list-page-title {
+  margin-top: -1rem;
+}
+
+.create-list-container {
+  margin: 1rem;
+}
+
+.create-list-container input {
+  margin: 0.4rem 0;
+  padding: 0.5rem 1rem;
+  width: 17rem;
+  height: 2rem;
+  border-radius: 0.3rem;
+  border: none;
+  background-color: #444;
+  font-size: 100%;
+  color: #fff;
+}
+
+.create-list-container button {
+  margin-left: 1rem;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  background-color: #e50914;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.create-list-container button:hover {
+  background-color: #d60000;
+}
+
+.list-page-container {
+  border-radius: 0.6rem;
+  width: 30rem;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  right: 0;
+  top: 4rem;
+  margin: 0 auto;
+  background-color: rgb(16, 16, 16, 0.7);
+  z-index: 1;
+  padding-bottom: 2rem;
+}
+
+.list-page-container hr {
+  width: 90%;
+  background-color: rgb(255, 255, 255, 0.3);
+  height: 0.5px;
+  border: none;
+}
+
+.show-list-container {
+  width: 90%;
+  height: 20rem;
+  overflow-y: scroll;
+} */

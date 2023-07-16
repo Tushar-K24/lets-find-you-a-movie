@@ -84,8 +84,6 @@ function Home() {
           />
           <Footer />
         </div>
-
-        <div id="home-overlay" />
       </div>
     </>
   );

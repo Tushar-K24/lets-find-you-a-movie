@@ -3,6 +3,7 @@ import { imageBaseUrl } from "../../config";
 import { ReactComponent as Close } from "../../assets/close.svg";
 import { IconHeart, IconPlaylistAdd } from "@tabler/icons-react";
 import { useState } from "react";
+import AddToList from "../AddToList/AddToList";
 
 const movie = {
   adult: false,
@@ -111,6 +112,8 @@ function generateGenreString(genres) {
 function MovieModal({ movieId, handleCloseClick }) {
   //set background image
   const [isHeartClicked, setIsHeartClicked] = useState(false);
+  const [isAddListClicked, setIsAddListClicked] = useState(false);
+
   const backdropUrl = imageBaseUrl + movie.backdrop_path;
   const style = {
     backgroundImage: "url(" + backdropUrl + ")",
@@ -123,48 +126,63 @@ function MovieModal({ movieId, handleCloseClick }) {
     setIsHeartClicked(!isHeartClicked);
   };
 
+  const handleAddListClick = () => {
+    setIsAddListClicked(true);
+  };
+
+  const closeListPage = () => {
+    setIsAddListClicked(false);
+  };
+
   return (
-    <div className="movie-modal">
-      <div style={style} className="movie-modal-header">
-        <div className="movie-modal-header-content">
-          <button className="close-btn" onClick={handleCloseClick}>
-            <Close className="close-logo" />
-          </button>
-          <div className="movie-modal-header-desc">
-            <h1>{movie.title}</h1>
-            <p>{movie.tagline}</p>
-            <div className="modal-buttons">
-              <IconHeart
-                className={isHeartClicked ? "active-heart" : ""}
-                width={"2rem"}
-                height={"2rem"}
-                fill={isHeartClicked ? "#e50914" : "false"}
-                onMouseEnter={open}
-                onMouseLeave={close}
-                onClick={handleHeartClick}
-              />
-              <IconPlaylistAdd width={"2rem"} height={"2rem"} />
+    <>
+      <div className="movie-modal">
+        <div style={style} className="movie-modal-header">
+          <div className="movie-modal-header-content">
+            <button className="close-btn" onClick={handleCloseClick}>
+              <Close className="close-logo" />
+            </button>
+            <div className="movie-modal-header-desc">
+              <h1>{movie.title}</h1>
+              <p>{movie.tagline}</p>
+              <div className="modal-buttons">
+                <IconHeart
+                  className={isHeartClicked ? "active-heart" : ""}
+                  width={"2rem"}
+                  height={"2rem"}
+                  fill={isHeartClicked ? "#e50914" : "false"}
+                  onClick={handleHeartClick}
+                />
+                <IconPlaylistAdd
+                  width={"2rem"}
+                  height={"2rem"}
+                  onClick={handleAddListClick}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <h1 id="header-title">Description</h1>
-      <div className="movie-modal-content">
-        <div className="movie-modal-desc">
-          <p>
-            <span>{movie.overview}</span>
-          </p>
+        <h1 id="header-title">Description</h1>
+        <div className="movie-modal-content">
+          <div className="movie-modal-desc">
+            <p>
+              <span>{movie.overview}</span>
+            </p>
+          </div>
+          <div className="movie-modal-meta">
+            <p>
+              Release: <span>{movie.release_date}</span>
+            </p>
+            <p>
+              Genre: <span>{genre}</span>
+            </p>
+          </div>
         </div>
-        <div className="movie-modal-meta">
-          <p>
-            Release: <span>{movie.release_date}</span>
-          </p>
-          <p>
-            Genre: <span>{genre}</span>
-          </p>
-        </div>
       </div>
-    </div>
+      {isAddListClicked && (
+        <AddToList movieId={movieId} closeMyList={closeListPage} />
+      )}
+    </>
   );
 }
 

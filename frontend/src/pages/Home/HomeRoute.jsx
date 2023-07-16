@@ -24,6 +24,7 @@ function HomeRoute() {
           <Route path=":list" element={<ListPage />} />
         </Route>
       </Routes>
+      <div id="home-overlay" />
     </>
   );
 }

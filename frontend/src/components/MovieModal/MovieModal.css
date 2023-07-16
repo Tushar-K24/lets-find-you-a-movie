@@ -38,7 +38,7 @@ span {
   top: 6rem;
   margin: 0 auto;
   background-color: #101010;
-  z-index: 3;
+  z-index: 60;
 }
 
 #header-title {

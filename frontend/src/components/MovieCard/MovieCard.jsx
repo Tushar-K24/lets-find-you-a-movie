@@ -7,14 +7,14 @@ function MovieCard({ movieId, title, imgUrl }) {
   const [isMoviePageActive, setIsMoviePageActive] = useState(false);
   const handleMovieCardClick = () => {
     setIsMoviePageActive(true);
-    // document.querySelector(".home").classList.add("inactive");
-    // document.querySelector(".xyz").classList.add("active");
+    document.querySelector("#home-overlay").classList.add("active");
+    document.body.style.overflow = "hidden";
   };
 
   const handleCloseMovieCardClick = () => {
     setIsMoviePageActive(false);
-    // document.querySelector(".home").classList.remove("inactive");
-    // document.querySelector(".xyz").classList.remove("active");
+    document.querySelector("#home-overlay").classList.remove("active");
+    document.body.style.overflow = "auto";
   };
 
   return (
