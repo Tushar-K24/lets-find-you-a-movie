@@ -105,7 +105,7 @@ const addMovie = async (req, res) => {
     }
 
     //database params mapping to req body params
-    const updatedData = {
+    const movieJson = {
       api_id: id,
       title: title,
       poster_path: poster_path,
@@ -120,18 +120,15 @@ const addMovie = async (req, res) => {
       vote_count: vote_count,
       content_embedding: content_embedding,
     };
-    const movieLog = await Movie.updateOne(
-      { api_id: id },
-      { $set: updatedData },
-      { upsert: true }
-    );
-    if (movieLog.upsertedCount) {
-      res.status(201).json({ message: "Movie added successfully" });
+    // check if movie exists in db
+    const existingMovie = await Movie.findOne({ api_id: id });
+    if (existingMovie) {
+      res.status(202).json({ message: "Movie exists already" });
     } else {
-      res.status(202).json({ message: "Movie updated successfully" });
+      const movieData = new Movie(movieJson);
+      const movie = await movieData.save();
+      res.status(201).json({ message: "Movie added successfully", movie });
     }
-    // const movieData = new Movie(updatedData);
-    // const movie = await movieData.save();
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
