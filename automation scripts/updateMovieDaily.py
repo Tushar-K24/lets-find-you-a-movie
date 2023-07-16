@@ -5,7 +5,8 @@ import requests
 import os
 import sys
 from tqdm import tqdm
-from constants import newMovies, dailyExportsUrl
+from constants import dailyExportsUrl
+from config import batchSize, dailyUpdateCount
 
 import utils.apiRequests as api
 import utils.dbRequests as db
@@ -49,7 +50,6 @@ def extract_data_from_json_gz(url):
         log.write(f"{datetime.now()} An error occurred: {e}\n")
         return None
 
-updateBodyParams = ["popularity", "vote_average", "vote_count"]
 def add_movie_pipeline(movieID):
     log.write(f"{datetime.now()} adding movieID:{movieID}...\n")
     
@@ -62,38 +62,21 @@ def add_movie_pipeline(movieID):
     movieData = response
     log.write(f"{datetime.now()} movie data retrieved for movieID:{movieID}\n")
     
-    # #update movie data in db
-    # log.write(f"{datetime.now()} updating movie data for movieID:{movieID}...\n")
-    # updateBody = {param: movieData[param] for param in updateBodyParams if param in movieData.keys()}
-    # status, response = db.updateMovie(movieID, updateBody)
-    # log.write(f"{datetime.now()} {response['message']}\n")
-    # if status == 200:
-    #     return {"updated": 1, "created": 0}
-    # elif status == 404:        
-    #     #add new movie in db
-    #     log.write(f"{datetime.now()} inserting movie data for movieID:{movieID}...\n")
-    #     status, response = db.addMovie(movieData)
-    #     log.write(f"{datetime.now()} {response['message']}\n")
-    #     if status == 201:
-    #         return {"updated": 0, "created": 1}
-    
     # add new movie in db
     log.write(f"{datetime.now()} inserting movie data for movieID:{movieID}...\n")
     status, response = db.addMovie(movieData)
     log.write(f"{datetime.now()} {response['message']}\n")
     if status == 201:
-        return {"updated": 0, "created": 1}
-    if status == 202:
-        return {"updated": 1, "created": 0}
+        return response
     
-    return None #if update/add movie unsuccessful    
+    return None #if add movie unsuccessful    
 
 if __name__ ==  "__main__":
 
     log = open(f'./logs/log_{today}.txt', 'a')
     log.write(f"{datetime.now()} Starting...\n")
     
-    created, updated = 0, 0
+    created = 0
     print("Downloading daily exports...")
     data = extract_data_from_json_gz(url)
     if data == None:
@@ -102,21 +85,36 @@ if __name__ ==  "__main__":
         sys.exit(0)
     print("Download successful")
     print("Updating Database...")
-    # pbar = tqdm(total=newMovies)
-    for movie in data:
-        if created>=newMovies:
+    
+    #batch processing
+    for i in range(0, len(data), batchSize):
+        if created >= dailyUpdateCount:
             break
-        response = add_movie_pipeline(movie["id"])
-        if response == None:
-            print(f"Error occurred while adding movie {movie['id']}, please check logs for more details")
+        log.write(f"{datetime.now()} Processing batch {i} - {i + batchSize}\n")
+        print(f"processing batch {i} - {i + batchSize}")
+        movies = data[i:i+batchSize]
+        movieIDs = [movie["id"] for movie in movies]
+        
+        log.write(f"{datetime.now()} Fetching MovieIDs...\n")
+        status, response = db.getMovies(movieIDs)
+        log.write(f"{datetime.now()} {response['message']}\n")
+        if status != 200: 
+            print("Error occurred while fetching movieIDs, please check logs for more details")
             print("Exiting...")
             sys.exit(1)
-        created += response["created"]
-        updated += response["updated"]
-        if (created + updated)%100 == 0:
-            print(f"Created: {created}, Updated: {updated}")
-        # if response["created"]>0:
-            # pbar.update(1)
+        existingMovieIDs = response["movies"]
+        newMovieIDs = list(set(movieIDs) - set(existingMovieIDs))
+        for movieID in tqdm(newMovieIDs):
+            if created >= dailyUpdateCount:
+                break
+            response = add_movie_pipeline(movieID)
+            if response == None:
+                print(f"Error occurred while adding movie {movieID}, please check logs for more details")
+                print("Exiting...")
+                sys.exit(2)
+
+            created += 1
+    
     print("Movies Added Successfully")
 
     log.close()
