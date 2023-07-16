@@ -75,12 +75,14 @@ function Carousel() {
 
   const handleCarouselClick = () => {
     setIsMoviePageActive(true);
-    // document.querySelector("#home-overlay").classList.add("active");
+    document.querySelector("#home-overlay").classList.add("active");
+    document.body.style.overflow = "hidden";
   };
 
   const handleCloseCarouselClick = () => {
     setIsMoviePageActive(false);
-    // document.querySelector("#home-overlay").classList.remove("active");
+    document.querySelector("#home-overlay").classList.remove("active");
+    document.body.style.overflow = "auto";
   };
   return (
     <>
