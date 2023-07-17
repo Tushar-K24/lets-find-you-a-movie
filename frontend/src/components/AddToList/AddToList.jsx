@@ -36,10 +36,18 @@ const lists = [
 ];
 
 function AddToList({ movieId, closeMyList }) {
+  const updateList = () => {
+    closeMyList();
+  };
   return (
     <div className="add-list-popup">
       {lists.map((list) => (
-        <ListTile key={list.listID} name={list.name} imageUrl={list.imageUrl} />
+        <ListTile
+          key={list.listID}
+          name={list.name}
+          imageUrl={list.imageUrl}
+          handleClick={updateList}
+        />
       ))}
     </div>
   );
