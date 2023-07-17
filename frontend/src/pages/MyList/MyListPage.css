@@ -37,6 +37,10 @@
   background-color: #d60000;
 }
 
+.list-link {
+  text-decoration: none;
+}
+
 .list-page-container {
   padding: 6rem 2rem;
   width: 50%;

@@ -4,12 +4,11 @@
   padding: 0.5rem;
   background-color: rgb(68, 68, 68, 0.4);
   border-radius: 0.5rem;
-  text-decoration: none;
   color: rgba(255, 255, 255, 0.87);
 }
 
 .list-tile-image {
-  height: 6rem;
+  height: 7rem;
   margin: 0.1rem;
   margin-right: 1.5rem;
   border-radius: 0.5rem;

@@ -37,21 +37,10 @@ const lists = [
 
 function AddToList({ movieId, closeMyList }) {
   return (
-    <div className="add-list-container">
-      <button className="close-btn" onClick={closeMyList}>
-        <Close className="close-logo" />
-      </button>
-      <h1 id="add-list-title">Lists</h1>
-      <hr />
-      <div className="show-list-container">
-        {lists.map((list) => (
-          <ListTile
-            key={list.listID}
-            imageUrl={list.imageUrl}
-            name={list.name}
-          />
-        ))}
-      </div>
+    <div className="add-list-popup">
+      {lists.map((list) => (
+        <ListTile key={list.listID} name={list.name} imageUrl={list.imageUrl} />
+      ))}
     </div>
   );
 }

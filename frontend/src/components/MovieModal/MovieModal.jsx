@@ -4,6 +4,7 @@ import { ReactComponent as Close } from "../../assets/close.svg";
 import { IconHeart, IconPlaylistAdd } from "@tabler/icons-react";
 import { useState } from "react";
 import AddToList from "../AddToList/AddToList";
+import { Popover, Text, Button } from "@mantine/core";
 
 const movie = {
   adult: false,
@@ -134,6 +135,13 @@ function MovieModal({ movieId, handleCloseClick }) {
     setIsAddListClicked(false);
   };
 
+  const popOverOptions = {
+    arrowPosition: "side",
+    width: 300,
+    withinPortal: true,
+    position: "right-start",
+    withArrow: true,
+  };
   return (
     <>
       <div className="movie-modal">
@@ -153,11 +161,14 @@ function MovieModal({ movieId, handleCloseClick }) {
                   fill={isHeartClicked ? "#e50914" : "false"}
                   onClick={handleHeartClick}
                 />
-                <IconPlaylistAdd
-                  width={"2rem"}
-                  height={"2rem"}
-                  onClick={handleAddListClick}
-                />
+                <Popover {...popOverOptions}>
+                  <Popover.Target>
+                    <IconPlaylistAdd width={"2rem"} height={"2rem"} />
+                  </Popover.Target>
+                  <Popover.Dropdown>
+                    <AddToList movieId={movieId} closeMyList={closeListPage} />
+                  </Popover.Dropdown>
+                </Popover>
               </div>
             </div>
           </div>
@@ -179,9 +190,6 @@ function MovieModal({ movieId, handleCloseClick }) {
           </div>
         </div>
       </div>
-      {isAddListClicked && (
-        <AddToList movieId={movieId} closeMyList={closeListPage} />
-      )}
     </>
   );
 }

@@ -1,5 +1,6 @@
 import "./MyListPage.css";
 import ListTile from "../../components/ListTile/ListTile";
+import { Link } from "react-router-dom";
 
 const lists = [
   {
@@ -47,11 +48,13 @@ function MyListPage() {
         <h1 className="show-list-title">Lists</h1>
 
         {lists.map((list) => (
-          <ListTile
-            key={list.listID}
-            imageUrl={list.imageUrl}
-            name={list.name}
-          />
+          <Link className="list-link" to={list.name}>
+            <ListTile
+              key={list.listID}
+              imageUrl={list.imageUrl}
+              name={list.name}
+            />
+          </Link>
         ))}
       </div>
     </div>
