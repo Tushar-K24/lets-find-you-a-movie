@@ -1,4 +1,5 @@
 const MovieLog = require("../models/movieLogSchema");
+const Movie = require("../models/movieSchema");
 
 const getAllLiked = async (req, res) => {
   /*
@@ -7,14 +8,16 @@ const getAllLiked = async (req, res) => {
   */
   try {
     const user = req.user.user;
-    const likedMovies = await MovieLog.find({
+    const movies = await MovieLog.find({
       user: user._id,
       isLiked: true,
-    }).populate({
-      path: "movie",
-      populate: { path: "genre", select: { _id: 0 } },
-      select: { contentEmbedding: 0 },
-    });
+    })
+      .populate({
+        path: "movie",
+        select: { _id: 0, api_id: 1, title: 1, poster_path: 1 },
+      })
+      .lean();
+    const likedMovies = movies.map((movieLog) => movieLog.movie);
     res.status(200).json({ message: "Favourites found", likedMovies });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -33,8 +36,9 @@ const addMovieToLiked = async (req, res) => {
   try {
     const user = req.user.user;
     const { movieID, isLiked } = req.body;
+    const movie = await Movie.findOne({ api_id: movieID });
     await MovieLog.findOneAndUpdate(
-      { movie: movieID, user: user._id },
+      { movie: movie._id, user: user._id },
       { $set: { isLiked: isLiked } },
       { upsert: true }
     );

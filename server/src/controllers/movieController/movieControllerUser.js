@@ -38,8 +38,12 @@ const getMovies = async (req, res) => {
         title: { $regex: search, $options: "i" },
       },
       {
-        contentEmbedding: 0,
-        __v: 0,
+        _id: 0,
+        api_id: 1,
+        title: 1,
+        poster_path: 1,
+        backdrop_path: 1,
+        genre: 1,
       }
     )
       .where("genre")
@@ -61,7 +65,7 @@ const getMovie = async (req, res) => {
   try {
     const { movieID } = req.params;
     const user = req.user.user;
-    const movie = await Movie.findOne({ _id: movieID });
+    const movie = await Movie.findOne({ api_id: movieID });
     if (movie) {
       const logExists = await MovieLog.findOne({
         movie: movie._id,
@@ -79,7 +83,7 @@ const getMovie = async (req, res) => {
         populate: { path: "genre", select: { _id: 0 } },
         select: { contentEmbedding: 0 },
       });
-      res.status(200).json({ message: "Movie found", movieLog });
+      res.status(200).json({ message: "Movie found", movie: movieLog });
     } else {
       res.status(404).json({ message: "Movie does not exist" });
     }

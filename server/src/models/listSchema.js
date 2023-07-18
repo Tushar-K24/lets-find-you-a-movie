@@ -1,3 +1,4 @@
+const Movie = require("./movieSchema");
 const mongoose = require("mongoose");
 
 const listSchema = new mongoose.Schema({
@@ -17,6 +18,22 @@ const listSchema = new mongoose.Schema({
       ref: "Movie",
     },
   ],
+  imagePath: String,
+});
+
+listSchema.pre("save", async function (next) {
+  if (this.isModified("movies") && this.movies.length > 0) {
+    try {
+      const movie = await Movie.findById(this.movies[0]);
+      if (movie) {
+        this.imagePath = movie.backdrop_path;
+      }
+    } catch (error) {
+      // Handle any errors that occur during the process
+      console.error(error);
+    }
+  }
+  next();
 });
 
 const List = mongoose.model("List", listSchema);

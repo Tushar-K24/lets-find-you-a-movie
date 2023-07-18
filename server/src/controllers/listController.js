@@ -8,7 +8,10 @@ const getAllLists = async (req, res) => {
   */
   try {
     const user = req.user.user;
-    const lists = await List.find({ createdUser: user._id });
+    const lists = await List.find(
+      { createdUser: user._id },
+      { movies: 0, __v: 0, createdUser: 0 }
+    );
     res.status(200).json({ message: "Lists found", lists: lists });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -55,14 +58,12 @@ const getList = async (req, res) => {
   try {
     const user = req.user.user;
     const { listName } = req.params;
-    console.log(listName);
     const list = await List.findOne({
       name: listName,
       createdUser: user._id,
     }).populate({
       path: "movies",
-      populate: { path: "genre", select: { _id: 0 } },
-      select: { contentEmbedding: 0 },
+      select: { _id: 0, api_id: 1, title: 1, poster_path: 1 },
     });
     if (list) {
       res.status(200).json({ message: "List found", list: list });
@@ -108,7 +109,7 @@ const addMovietoList = async (req, res) => {
     const user = req.user.user;
     const { listName } = req.params;
     const { movieID } = req.body;
-    const movie = await Movie.findOne({ _id: movieID });
+    const movie = await Movie.findOne({ api_id: movieID });
     if (movie) {
       const updatedLog = await List.updateOne(
         { name: listName, createdUser: user._id },
