@@ -1,15 +1,39 @@
 import { useState } from "react";
 import "./Auth.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { baseUrl } from "../../config";
 
-function Signup({ toggleForm }) {
+function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      name: name,
+      email: email,
+      password: password,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${baseUrl}/auth/register`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        navigate("/login");
+      })
+      .catch((error) => console.log("error", error));
   };
 
   return (

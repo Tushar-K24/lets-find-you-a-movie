@@ -4,13 +4,17 @@ import FavouritesPage from "../FavouritesPage/FavouritesPage";
 import MyListPage from "../MyList/MyListPage";
 import Navbar from "../../components/Navbar/Navbar";
 import ListPage from "../ListPage/ListPage";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/authContext";
 
 function HomeRoute() {
+  const { Logout } = useContext(AuthContext);
   const navTitle = "Let's Find You A Movie";
   const navLinks = [
     <Link to="/home"> Home </Link>,
     <Link to="favourites"> Favourites </Link>,
     <Link to="lists"> My List </Link>,
+    <Link onClick={Logout}>Logout</Link>,
   ];
 
   return (

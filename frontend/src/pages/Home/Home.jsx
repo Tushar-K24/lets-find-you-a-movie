@@ -4,6 +4,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import MoviesSection from "../../components/MoviesSection/MoviesSection";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/authContext";
 
 const movies = [
   {
@@ -59,6 +61,8 @@ const movies = [
 ];
 
 function Home() {
+  const { currentUser } = useContext(AuthContext);
+  // console.log(currentUser);
   //movie section
   const movieCardList = movies.map((movie) => (
     <MovieCard

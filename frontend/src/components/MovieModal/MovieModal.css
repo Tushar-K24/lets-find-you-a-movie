@@ -14,6 +14,10 @@ span {
   fill: rgb(255, 255, 255, 0.5);
 }
 
+.error-message {
+  text-align: center;
+}
+
 .mantine-Popover-dropdown {
   background-color: #1b1a1a;
 }
@@ -24,7 +28,7 @@ span {
 }
 
 .movie-modal-desc {
-  flex-shrink: 3;
+  flex-shrink: 2;
   margin-right: 2rem;
 }
 

@@ -10,8 +10,10 @@ function Navbar({ title, links }) {
         </Link>
 
         <ul className="nav-links">
-          {links.map((link) => (
-            <li className="nav-link">{link}</li>
+          {links.map((link, i) => (
+            <li key={i} className="nav-link">
+              {link}
+            </li>
           ))}
         </ul>
       </div>
