@@ -1,2 +1,2 @@
-dailyUpdateCount = 1000
-batchSize = 500
+dailyUpdateCount = 100
+batchSize = 100
