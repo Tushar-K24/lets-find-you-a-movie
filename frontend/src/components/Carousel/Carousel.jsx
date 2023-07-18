@@ -1,46 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Carousel.css";
-import { imageBaseUrl } from "../../config";
+import { imageBaseUrl, carouselUrl, placeholderImage } from "../../config";
 import { ReactComponent as PrevBtn } from "../../assets/prev.svg";
 import { ReactComponent as NextBtn } from "../../assets/next.svg";
 import MovieModal from "../MovieModal/MovieModal";
-
-const movies = [
-  {
-    id: 550,
-    title: "Fight Club",
-    backdrop_path: "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
-    genres: [
-      {
-        id: 18,
-        name: "Drama",
-      },
-      {
-        id: 53,
-        name: "Thriller",
-      },
-      {
-        id: 35,
-        name: "Comedy",
-      },
-    ],
-  },
-  {
-    id: 400,
-    title: "Things to Do in Denver When You're Dead",
-    backdrop_path: "/7fEOKdQIfbkOxy0enLtpyPGUsTm.jpg",
-    genres: [
-      {
-        id: 18,
-        name: "Drama",
-      },
-      {
-        id: 80,
-        name: "Crime",
-      },
-    ],
-  },
-];
+import { AuthContext } from "../../contexts/authContext";
 
 function generateGenreString(genreList) {
   let genre = "";
@@ -51,14 +15,46 @@ function generateGenreString(genreList) {
 }
 
 function Carousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { authToken } = useContext(AuthContext);
+  const [movies, setMovies] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState();
   const [isMoviePageActive, setIsMoviePageActive] = useState(false);
 
-  let genre = generateGenreString(movies[currentIndex].genres);
-  const backdropUrl = imageBaseUrl + movies[currentIndex].backdrop_path;
+  //movie items
+  const [title, setTitle] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState(placeholderImage);
+  const [genre, setGenre] = useState("");
+
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${authToken}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(carouselUrl, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        const res = JSON.parse(result);
+        setMovies(res.movies);
+        setCurrentIndex(0);
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
+
+  useEffect(() => {
+    if (movies.length > 0) {
+      setTitle(movies[currentIndex].title);
+      setBackgroundImage(imageBaseUrl + movies[currentIndex].backdrop_path);
+      setGenre(generateGenreString(movies[currentIndex].genre));
+    }
+  }, [currentIndex]);
 
   const style = {
-    backgroundImage: "url(" + backdropUrl + ")",
+    backgroundImage: "url(" + backgroundImage + ")",
   };
 
   const nextSlide = () => {
@@ -93,7 +89,7 @@ function Carousel() {
           </button>
           <div onClick={handleCarouselClick} className="carousel-content">
             <div className="carousel-desc">
-              <h1>{movies[currentIndex].title}</h1>
+              <h1>{title}</h1>
               <p>{genre}</p>
             </div>
           </div>
@@ -105,7 +101,7 @@ function Carousel() {
       </div>
       {isMoviePageActive && (
         <MovieModal
-          movieId={movies[currentIndex].id}
+          movieId={movies[currentIndex].api_id}
           handleCloseClick={handleCloseCarouselClick}
         />
       )}

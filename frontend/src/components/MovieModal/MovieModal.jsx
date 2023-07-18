@@ -79,13 +79,13 @@ function MovieModal({ movieId, handleCloseClick }) {
       .catch((error) => console.log("error", error));
   };
 
-  const handleAddListClick = () => {
-    setIsAddListClicked(true);
-  };
+  // const handleAddListClick = () => {
+  //   setIsAddListClicked(true);
+  // };
 
-  const closeListPage = () => {
-    setIsAddListClicked(false);
-  };
+  // const closeListPage = () => {
+  //   setIsAddListClicked(false);
+  // };
 
   const popOverOptions = {
     arrowPosition: "side",
@@ -119,10 +119,7 @@ function MovieModal({ movieId, handleCloseClick }) {
                       <IconPlaylistAdd width={"2rem"} height={"2rem"} />
                     </Popover.Target>
                     <Popover.Dropdown>
-                      <AddToList
-                        movieId={movieId}
-                        closeMyList={closeListPage}
-                      />
+                      <AddToList movieId={movieId} />
                     </Popover.Dropdown>
                   </Popover>
                 </div>

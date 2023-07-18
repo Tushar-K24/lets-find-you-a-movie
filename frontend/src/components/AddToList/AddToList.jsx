@@ -1,52 +1,22 @@
-import { ReactComponent as Close } from "../../assets/close.svg";
 import "./AddToList.css";
 import ListTile from "../ListTile/ListTile";
+import { useContext } from "react";
+import { ListContext } from "../../contexts/myListsContext";
+import { imageBaseUrl, placeholderImage } from "../../config";
 
-const lists = [
-  {
-    imageUrl:
-      "https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
-    name: "List 1",
-    listID: "1",
-  },
-  {
-    imageUrl:
-      "https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
-    name: "List 2",
-    listID: "2",
-  },
-  {
-    imageUrl:
-      "https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
-    name: "List 3",
-    listID: "3",
-  },
-  {
-    imageUrl:
-      "https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
-    name: "List 4",
-    listID: "4",
-  },
-  {
-    imageUrl:
-      "https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
-    name: "List 5",
-    listID: "5",
-  },
-];
-
-function AddToList({ movieId, closeMyList }) {
-  const updateList = () => {
-    closeMyList();
-  };
+function AddToList({ movieId }) {
+  const { lists } = useContext(ListContext);
   return (
     <div className="add-list-popup">
+      <h2 className="add-list-title">Add to</h2>
       {lists.map((list) => (
         <ListTile
-          key={list.listID}
+          key={list._id}
+          imageUrl={
+            list.imagePath ? imageBaseUrl + list.imagePath : placeholderImage
+          }
           name={list.name}
-          imageUrl={list.imageUrl}
-          handleClick={updateList}
+          movieID={movieId}
         />
       ))}
     </div>

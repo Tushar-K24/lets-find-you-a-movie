@@ -14,3 +14,7 @@
 .add-list-popup::-webkit-scrollbar {
   width: 0;
 }
+
+.add-list-title {
+  margin: 0;
+}
