@@ -12,7 +12,7 @@ const apiV1 = require("./src/apis/apiV1");
 
 app.use(bodyParser.json());
 const corsOptions = {
-  origin: ["https://lets-find-you-a-movie.vercel.app"],
+  origin: ["http://localhost:5173", "https://lets-find-you-a-movie.vercel.app"],
 };
 app.use(cors(corsOptions));
 
