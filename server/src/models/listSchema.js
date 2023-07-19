@@ -21,12 +21,19 @@ const listSchema = new mongoose.Schema({
   imagePath: String,
 });
 
-listSchema.pre("save", async function (next) {
-  if (this.isModified("movies") && this.movies.length > 0) {
+listSchema.pre("updateOne", async function (next) {
+  console.log("inside pre method");
+  const movieID = this._update["$addToSet"].movies;
+  if (movieID) {
     try {
-      const movie = await Movie.findById(this.movies[0]);
-      if (movie) {
-        this.imagePath = movie.backdrop_path;
+      const movie = await Movie.findById(movieID);
+      if (movie.backdrop_path) {
+        const update = {
+          $set: {
+            imagePath: movie.backdrop_path,
+          },
+        };
+        await this.updateOne({}, update);
       }
     } catch (error) {
       // Handle any errors that occur during the process
