@@ -2,9 +2,11 @@ import { useContext } from "react";
 import "./ListTile.css";
 import { AuthContext } from "../../contexts/authContext";
 import { baseUrl } from "../../config";
+import { ListContext } from "../../contexts/myListsContext";
 
 function ListTile({ name, imageUrl, movieID }) {
   const { authToken } = useContext(AuthContext);
+  const { fetchLists } = useContext(ListContext);
 
   const addMovieToList = () => {
     var myHeaders = new Headers();
@@ -24,7 +26,10 @@ function ListTile({ name, imageUrl, movieID }) {
 
     fetch(`${baseUrl}/user/lists/${name}/movies`, requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        fetchLists(authToken);
+      })
       .catch((error) => console.log("error", error));
   };
   const handleClick = movieID ? addMovieToList : () => {};

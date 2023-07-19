@@ -9,7 +9,7 @@ import { ListContext } from "../../contexts/myListsContext";
 function MyListPage() {
   const { authToken } = useContext(AuthContext);
   const { lists, fetchLists } = useContext(ListContext);
-  const [listName, setListName] = useState();
+  const [listName, setListName] = useState("");
 
   useEffect(() => {
     if (lists.length === 0) {

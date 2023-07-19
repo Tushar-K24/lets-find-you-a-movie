@@ -1,4 +1,5 @@
 import { useState } from "react";
+import errorImage from "../../assets/error.jpg";
 import { imageBaseUrl } from "../../config";
 import "./MovieCard.css";
 import MoviePage from "../MovieModal/MovieModal";
@@ -17,15 +18,12 @@ function MovieCard({ movieId, title, imgUrl }) {
     document.body.style.overflow = "auto";
   };
 
+  const imageUrl = imgUrl ? imageBaseUrl + imgUrl : errorImage;
   return (
     <>
       <div className="movie-card">
         <button className="movie-card-btn" onClick={handleMovieCardClick}>
-          <img
-            src={imageBaseUrl + imgUrl}
-            alt={title}
-            className="movie-card-image"
-          />
+          <img src={imageUrl} alt={title} className="movie-card-image" />
           <p className="movie-card-title">{title}</p>
         </button>
       </div>
