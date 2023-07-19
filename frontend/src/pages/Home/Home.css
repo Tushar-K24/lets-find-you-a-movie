@@ -2,11 +2,14 @@
   width: 100%;
 }
 
+#home-overlay {
+  z-index: 50;
+}
+
 .active {
   top: 0;
   position: fixed;
   height: 100%;
   width: 100%;
   background-color: rgb(20, 20, 20, 0.8);
-  z-index: 50;
 }
