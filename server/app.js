@@ -32,6 +32,10 @@ mongoose.set("debug", true);
 
 app.use("/api/v1", apiV1);
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ message: "ok" });
+});
+
 app.listen(PORT, () => {
   console.log(`server started at port ${PORT}`);
 });
