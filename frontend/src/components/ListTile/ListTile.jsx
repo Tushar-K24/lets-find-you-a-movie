@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/authContext";
 import { baseUrl } from "../../config";
 import { ListContext } from "../../contexts/myListsContext";
 
-function ListTile({ name, imageUrl, movieID }) {
+function ListTile({ name, imageUrl, movieID, handleCloseClick }) {
   const { authToken } = useContext(AuthContext);
   const { fetchLists } = useContext(ListContext);
 
@@ -29,6 +29,7 @@ function ListTile({ name, imageUrl, movieID }) {
       .then((result) => {
         console.log(result);
         fetchLists(authToken);
+        handleCloseClick();
       })
       .catch((error) => console.log("error", error));
   };

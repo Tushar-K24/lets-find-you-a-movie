@@ -25,7 +25,7 @@ function MovieModal({ movieId, handleCloseClick }) {
   const [movie, setMovie] = useState();
   const [genre, setGenre] = useState([]);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
-  const [isAddListClicked, setIsAddListClicked] = useState(false);
+  const [popOverOpened, setPopOverOpened] = useState(false);
 
   useEffect(() => {
     var myHeaders = new Headers();
@@ -79,15 +79,9 @@ function MovieModal({ movieId, handleCloseClick }) {
       .catch((error) => console.log("error", error));
   };
 
-  // const handleAddListClick = () => {
-  //   setIsAddListClicked(true);
-  // };
-
-  // const closeListPage = () => {
-  //   setIsAddListClicked(false);
-  // };
-
   const popOverOptions = {
+    opened: popOverOpened,
+    onClick: setPopOverOpened,
     arrowPosition: "side",
     width: 300,
     withinPortal: true,
@@ -119,7 +113,12 @@ function MovieModal({ movieId, handleCloseClick }) {
                       <IconPlaylistAdd width={"2rem"} height={"2rem"} />
                     </Popover.Target>
                     <Popover.Dropdown>
-                      <AddToList movieId={movieId} />
+                      <AddToList
+                        handleCloseClick={() => {
+                          setPopOverOpened((o) => !o);
+                        }}
+                        movieId={movieId}
+                      />
                     </Popover.Dropdown>
                   </Popover>
                 </div>
