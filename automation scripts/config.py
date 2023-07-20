@@ -7,5 +7,4 @@ encoder_name = "distilbert-base-nli-stsb-mean-tokens"
 faissIndexPath = "../faissIndices/"
 embeddingSize = 768
 indexOption = faiss.IndexFlatIP(embeddingSize)
-
 genreList = ["all"]

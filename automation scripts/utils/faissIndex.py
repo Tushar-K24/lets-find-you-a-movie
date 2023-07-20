@@ -9,9 +9,9 @@ def createIndex(ids, moviesEmbeddings, genre="all"):
     moviesEmbeddings = np.array(moviesEmbeddings)
 
     filepath = faissIndexPath + genre
-
+    print(moviesEmbeddings.shape, ids.shape)
     index = faiss.IndexIDMap(indexOption)
     index.add_with_ids(moviesEmbeddings, ids)
+
     # save index
     faiss.write_index(index, filepath)
-    return index

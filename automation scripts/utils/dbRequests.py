@@ -15,6 +15,8 @@ def getAllMovies(genre="all"):
         response = requests.request("GET", url, headers=headers, data=payload)
 
         return response.status_code, json.loads(response.content)
+    except requests.exceptions.ConnectionError as e:
+        return 502, {"message": f"ConnectionError: {e}"}
     except Exception as e:
         return 400, {"message": f"An error occurred: {e}"}
 
@@ -68,6 +70,22 @@ def addMovie(data):
         if isinstance(data, dict):
             payload = json.dumps(data)
         response = requests.request("POST", url, headers=headers, data=payload)
+        return response.status_code, json.loads(response.content)
+    except requests.exceptions.ConnectionError as e:
+        return 502, {"message": f"ConnectionError: {e}"}
+    except Exception as e:
+        return 400, {"message": f"An error occurred: {e}"}
+
+
+# get genreList
+def getGenreList():
+    try:
+        url = f"{apiBaseUrl}/admin/genres"
+
+        payload = {}
+        headers = {"Authorization": f"Bearer {accessToken}"}
+        response = requests.request("GET", url, headers=headers, data=payload)
+
         return response.status_code, json.loads(response.content)
     except requests.exceptions.ConnectionError as e:
         return 502, {"message": f"ConnectionError: {e}"}
