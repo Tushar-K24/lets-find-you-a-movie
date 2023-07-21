@@ -28,7 +28,7 @@ const movieSchema = new mongoose.Schema({
   popularity: Number,
   vote_average: Number,
   vote_count: Number,
-  contentEmbedding: [
+  content_embedding: [
     {
       type: Number,
     },

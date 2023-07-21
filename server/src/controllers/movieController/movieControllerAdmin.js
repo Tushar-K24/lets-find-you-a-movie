@@ -1,5 +1,30 @@
+const Genre = require("../../models/genreSchema");
 const Movie = require("../../models/movieSchema");
 const { getGenres } = require("../../utils/genre");
+
+const getMoviesAll = async (req, res) => {
+  /*
+    returns the movies of all the movies in db
+    route: /admin/movies/:genre
+  */
+  try {
+    const { genre } = req.params;
+    const genreString =
+      genre.charAt(0).toUpperCase() + genre.slice(1).toLowerCase();
+    const genreQuery = genreString === "All" ? {} : { name: genreString };
+    const genreList = await Genre.find(genreQuery).distinct("_id");
+    const movieQuery =
+      genreString === "All" ? {} : { genre: { $in: genreList } };
+    const movies = await Movie.find(movieQuery, {
+      _id: 0,
+      api_id: 1,
+      content_embedding: 1,
+    });
+    res.status(200).json({ message: "Movies found", movies });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 
 const getMovies = async (req, res) => {
   /*
@@ -133,4 +158,21 @@ const addMovie = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-module.exports = { getMovies, getMovie, updateMovie, addMovie };
+
+const getAllGenres = async (req, res) => {
+  try {
+    const genreList = await Genre.find({}).distinct("name");
+    res.status(200).json({ message: "Genre found", genreList });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  getMoviesAll,
+  getMovies,
+  getMovie,
+  updateMovie,
+  addMovie,
+  getAllGenres,
+};

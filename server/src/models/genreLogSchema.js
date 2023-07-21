@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const movieLogSchema = new mongoose.Schema(
+const genreLogSchema = new mongoose.Schema(
   {
-    movie: {
+    genre: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Movie",
+      ref: "Genre",
       required: true,
     },
     user: {
@@ -12,20 +12,14 @@ const movieLogSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    isLiked: {
-      type: Boolean,
-      default: false,
-    },
-    rating: {
+    likeCount: {
       type: Number,
-      min: 0,
-      max: 5,
       default: 0,
     },
   },
   { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } }
 );
 
-const MovieLog = mongoose.model("MovieLog", movieLogSchema);
+const GenreLog = mongoose.model("GenreLog", genreLogSchema);
 
-module.exports = MovieLog;
+module.exports = GenreLog;

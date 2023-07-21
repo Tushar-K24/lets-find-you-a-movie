@@ -18,6 +18,7 @@ const getMovies = async (req, res) => {
     const search = req.query.search || "";
     let sort = req.query.sort || "latest";
     let genre = req.query.genre || "All";
+    genre = genre.charAt(0).toUpperCase() + genre.slice(1).toLowerCase();
     const genreList = await Genre.distinct("name");
     genre === "All" ? (genre = [...genreList]) : (genre = genre.split(","));
     req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
@@ -32,10 +33,10 @@ const getMovies = async (req, res) => {
     }
 
     const genreIds = await Genre.find({ name: { $in: genre } }).distinct("_id");
-
     const movies = await Movie.find(
       {
         title: { $regex: search, $options: "i" },
+        genre: { $in: genreIds },
       },
       {
         _id: 0,
@@ -46,8 +47,6 @@ const getMovies = async (req, res) => {
         genre: 1,
       }
     )
-      .where("genre")
-      .in([...genreIds])
       .sort(sortBy)
       .limit(limit)
       .populate({ path: "genre", select: { _id: 0 } });

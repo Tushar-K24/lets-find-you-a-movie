@@ -1,3 +1,4 @@
+const GenreLog = require("../models/genreLogSchema");
 const MovieLog = require("../models/movieLogSchema");
 const Movie = require("../models/movieSchema");
 
@@ -42,6 +43,19 @@ const addMovieToLiked = async (req, res) => {
       { $set: { isLiked: isLiked } },
       { upsert: true }
     );
+    const genreList = movie.genre;
+    //create bulk ops
+    const incrementValue = isLiked ? 1 : -1;
+    bulkOpsArr = genreList.map((genre) => {
+      return {
+        updateOne: {
+          filter: { user: user._id, genre: genre._id },
+          update: { $inc: { likeCount: incrementValue } },
+          upsert: true,
+        },
+      };
+    });
+    await GenreLog.bulkWrite(bulkOpsArr);
     res.status(202).json({ message: "Movie status updated" });
   } catch (err) {
     res.status(400).json({ message: err.message });
