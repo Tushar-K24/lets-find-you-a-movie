@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/authContext";
 import { ListContext } from "../../contexts/myListsContext";
 import { baseUrl } from "../../config";
 
-const dummySection = [
+const defaultSections = [
   {
     title: "Latest Release",
     url: `${baseUrl}/user/movies?sort=latest`,
@@ -17,14 +17,18 @@ const dummySection = [
     title: "Most Popular",
     url: `${baseUrl}/user/movies?sort=popularity`,
   },
+  {
+    title: "Recommended for you",
+    url: `${baseUrl}/user/recommendations`,
+  },
 ];
 
 function Home() {
   const { authToken } = useContext(AuthContext);
   const { fetchLists } = useContext(ListContext);
-  const [sections, setSections] = useState(dummySection);
+  const [sections, setSections] = useState(defaultSections);
 
-  const fetchMovies = (url) => {
+  const fetchGenres = () => {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${authToken}`);
 
@@ -34,15 +38,26 @@ function Home() {
       redirect: "follow",
     };
 
-    fetch(url, requestOptions)
+    fetch(`${baseUrl}/user/genres/top`, requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        const genreList = JSON.parse(result).genreList;
+        const genreSections = genreList.map((genre) => {
+          return {
+            title: genre,
+            url: `${baseUrl}/user/recommendations?genre=${genre}`,
+          };
+        });
+        setSections([...sections, ...genreSections]);
+      })
       .catch((error) => console.log("error", error));
   };
   useEffect(() => {
     //get user lists
     fetchLists(authToken);
+    fetchGenres();
   }, []);
+
   // console.log(currentUser);
   return (
     <>

@@ -7,7 +7,6 @@ import MovieCard from "../../components/MovieCard/MovieCard";
 function MoviesSection({ title, url }) {
   const { authToken } = useContext(AuthContext);
   const [movies, setMovies] = useState([]);
-
   useEffect(() => {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${authToken}`);
@@ -22,10 +21,13 @@ function MoviesSection({ title, url }) {
       .then((response) => response.text())
       .then((result) => {
         const res = JSON.parse(result);
-        setMovies(res.movies);
+        if (res.movies) {
+          setMovies(res.movies);
+        }
       })
       .catch((error) => console.log("error", error));
   }, []);
+
   //movie section
   const movieCardList = movies.map((movie) => (
     <MovieCard
@@ -47,14 +49,21 @@ function MoviesSection({ title, url }) {
   };
 
   return (
-    <div
-      className="movies-section"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <h1 className="section-title">{title}</h1>
-      <SectionRow isRowHovered={isRowHovered} sectionItems={movieCardList} />
-    </div>
+    <>
+      {movies.length > 0 && (
+        <div
+          className="movies-section"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <h1 className="section-title">{title}</h1>
+          <SectionRow
+            isRowHovered={isRowHovered}
+            sectionItems={movieCardList}
+          />
+        </div>
+      )}
+    </>
   );
 }
 
