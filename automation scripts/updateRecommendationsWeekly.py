@@ -1,10 +1,9 @@
 from datetime import datetime, date, timedelta
 import sys
+import os
 
-from utils.dbRequests import getAllMovies, getGenreList
+from utils.dbRequests import getAllMovies
 from utils.faissIndex import createIndex
-
-from config import genreList
 
 today = (date.today() - timedelta(days=1)).strftime("%m_%d_%Y")
 
@@ -44,30 +43,17 @@ if __name__ == "__main__":
     log = open(f"./logs/update/log_{today}.txt", "a")
     log.write(f"{datetime.now()} Starting...\n")
 
-    print("Fetching genreList...")
-    # log.write(f"{datetime.now()} Retrieving Genres...\n")
-    # status, response = getGenreList()
-    # log.write(f"{datetime.now()} {response['message']}\n")
-    # if status != 200:
-    #     print(
-    #         f"Error occurred while retrieving genres, please check logs for more details"
-    #     )
-    #     print("Exiting...")
-    #     sys.exit(0)
-    # genreList.extend([genre.lower() for genre in response["genreList"]])
+    genre = os.environ["genre"].lower()
+    print(f"Updating for Genre: {genre}")
+    log.write(f"{datetime.now()} Updating for Genre: {genre}...\n")
+    response = updateRecommendations(genre)
+    if response == None:
+        print(
+            f"Error occurred while updating genre: {genre}, please check logs for more details"
+        )
+        print("Exiting...")
+        sys.exit(1)
+    print(f"Genre: {genre} Updated successfully")
+    log.write(f"{datetime.now()} Genre: {genre} Updated successfully\n")
 
-    for genre in genreList:
-        print(f"Updating for Genre: {genre}")
-        log.write(f"{datetime.now()} Updating for Genre: {genre}...\n")
-        response = updateRecommendations(genre)
-        if response == None:
-            print(
-                f"Error occurred while updating genre: {genre}, please check logs for more details"
-            )
-            print("Exiting...")
-            sys.exit(1)
-        print(f"Genre: {genre} Updated successfully")
-        log.write(f"{datetime.now()} Genre: {genre} Updated successfully\n")
-
-    log.write(f"{datetime.now()} Updated successfully\n")
     log.close()
