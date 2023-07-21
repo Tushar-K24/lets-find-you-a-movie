@@ -1,7 +1,5 @@
 import numpy as np
-import json
 from flask import Blueprint, request, make_response
-from services.faissIndexService import createIndex
 from services.recommendationService import getRecommendations
 
 apiV1 = Blueprint('recommendations', __name__)

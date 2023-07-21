@@ -9,6 +9,9 @@ def getRecommendations(embeddingMatrix, genre="all", k = 20):
         embeddingMatrix = np.array(embeddingMatrix)
     embeddingMatrix = embeddingMatrix.reshape((-1, embeddingSize))
     
+    if embeddingMatrix.shape[0] == 0:
+        return []
+    
     #get faiss index
     index = faiss.read_index(faissIndexPath + genre)
     
