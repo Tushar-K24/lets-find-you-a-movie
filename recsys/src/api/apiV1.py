@@ -1,6 +1,6 @@
 import numpy as np
 from flask import Blueprint, request, make_response
-from services.recommendationService import getRecommendations
+from ..services.recommendationService import getRecommendations
 
 apiV1 = Blueprint('recommendations', __name__)
 

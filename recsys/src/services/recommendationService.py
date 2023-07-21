@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import faiss
-from config import embeddingSize, faissIndexPath
+from ..config import embeddingSize, faissIndexPath
 
 # returns top k movie IDs as recommendation based on content embedding matrix
 def getRecommendations(embeddingMatrix, genre="all", k = 20):
