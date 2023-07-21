@@ -18,20 +18,6 @@ const getRecommendations = async (req, res) => {
     if (!genreList || genreList.length === 0) {
       res.status(404).json({ message: "Genre not found" });
     } else {
-      // const latestInteractions = await MovieLog.find(
-      //   { user: user._id },
-      //   { _id: 0, movie: 1 }
-      // )
-      //   .populate({
-      //     path: "movie",
-      //     match: {
-      //       genre: { $in: genreList },
-      //     },
-      //     select: { _id: 0, api_id: 1, content_embedding: 1 },
-      //   })
-      //   .sort({ updatedAt: -1 })
-      //   .limit(limit);
-
       const latestInteractions = await MovieLog.aggregate([
         {
           $match: { user: new mongoose.Types.ObjectId(user._id) },
@@ -66,8 +52,6 @@ const getRecommendations = async (req, res) => {
           },
         },
       ]);
-      console.log("genre: ", genre);
-      console.log(latestInteractions);
       const recommendations = await getRecommendationService(
         latestInteractions,
         genreString.toLowerCase()
