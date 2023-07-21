@@ -70,7 +70,7 @@ const getRecommendations = async (req, res) => {
       console.log(latestInteractions);
       const recommendations = await getRecommendationService(
         latestInteractions,
-        "all" // genreString.toLowerCase()
+        genreString.toLowerCase()
       );
 
       if (recommendations.status == 200) {

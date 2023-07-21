@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import faiss
 from config import embeddingSize, faissIndexPath
 
@@ -7,6 +8,8 @@ def getRecommendations(embeddingMatrix, genre="all", k = 20):
     #format embedding matrix
     if isinstance(embeddingMatrix, list):
         embeddingMatrix = np.array(embeddingMatrix)
+    if not os.path.exists(faissIndexPath + genre):
+        genre = "all"
     embeddingMatrix = embeddingMatrix.reshape((-1, embeddingSize))
     
     if embeddingMatrix.shape[0] == 0:
