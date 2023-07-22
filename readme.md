@@ -1,4 +1,4 @@
-![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/39127b52-4e54-4e44-8230-eb1cef464daa)# [lets-find-you-a-movie](https://lets-find-you-a-movie.vercel.app)
+# [lets-find-you-a-movie](https://lets-find-you-a-movie.vercel.app)
 
 [https://lets-find-you-a-movie.vercel.app](https://lets-find-you-a-movie.vercel.app)
 
