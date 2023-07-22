@@ -1,8 +1,11 @@
-# [lets-find-you-a-movie](https://lets-find-you-a-movie.vercel.app)
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/39127b52-4e54-4e44-8230-eb1cef464daa)# [lets-find-you-a-movie](https://lets-find-you-a-movie.vercel.app)
+
+[https://lets-find-you-a-movie.vercel.app](https://lets-find-you-a-movie.vercel.app)
 
 "Lets find you a movie" is a movie recommender system that dynamically changes movie recommendations as the user interacts with the movies displayed on the webpage. Along with the functionality of recommending movies, the user can also like a movie, check their liked movies in the favourites section, create movie lists, and add movies to those lists. The overview of the web-app is displayed in the images below:
 
-![image.png](attachment:image.png)
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/1ce0238d-380a-4071-b638-cf171b35c7e1)
+
 
 ## Recommendations
 
@@ -14,18 +17,20 @@ The recommendations are displayed in 6 movie sections:
 
 2 - 6. Recommendations are made based on top 5 genres of user has interacted with (interactions here only include liking movies/adding movies to favourites)
 
-![image-2.png](attachment:image-2.png)
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/41cec71e-a174-450d-b9a4-30cc53547158)
 
-![image-3.png](attachment:image-3.png)
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/4f319bc3-fb45-4d15-a0b0-e788f5f81009)
+
 
 ## Favourites
 
 Displays the movies liked by the user:
 
-![image-4.png](attachment:image-4.png)
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/4863fb05-b389-4c51-b00f-e499a9da35b3)
+
 
 ## My List
 
 Allows the user to create and manage lists
 
-![image-5.png](attachment:image-5.png)
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/70e084a1-6ae5-473b-a608-14cc7678c066)
