@@ -15,7 +15,7 @@ The recommendations are displayed in 6 movie sections:
 
 1\. Recommended for you: Displays movie recommendations based on users previous movie interactions.
 
-2 - 6. Recommendations are made based on top 5 genres of user has interacted with (interactions here only include liking movies/adding movies to favourites)
+2 - 6. Recommendations are made based on top 5 genres the user has interacted with (interactions here only include liking movies/adding movies to favourites)
 
 ![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/41cec71e-a174-450d-b9a4-30cc53547158)
 
