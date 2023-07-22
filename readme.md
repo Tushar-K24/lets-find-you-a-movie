@@ -4,8 +4,7 @@
 
 "Lets find you a movie" is a movie recommender system that dynamically changes movie recommendations as the user interacts with the movies displayed on the webpage. Along with the functionality of recommending movies, the user can also like a movie, check their liked movies in the favourites section, create movie lists, and add movies to those lists. The overview of the web-app is displayed in the images below:
 
-![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/1ce0238d-380a-4071-b638-cf171b35c7e1)
-
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/b5128dd6-2748-4b24-9911-c789501ed832)
 
 ## Recommendations
 
@@ -17,9 +16,15 @@ The recommendations are displayed in 6 movie sections:
 
 2 - 6. Recommendations are made based on top 5 genres the user has interacted with (interactions here only include liking movies/adding movies to favourites)
 
-![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/41cec71e-a174-450d-b9a4-30cc53547158)
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/1ce0238d-380a-4071-b638-cf171b35c7e1)
 
 ![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/4f319bc3-fb45-4d15-a0b0-e788f5f81009)
+
+## Movie Description Page
+
+Movie description page pops up when the user clicks on a movie, the description page allows the user to like a movie, or add the movie to a list:
+
+![image](https://github.com/Tushar-K24/lets-find-you-a-movie/assets/62638544/b907b0c8-9079-4e54-be5f-82e82552edc0)
 
 
 ## Favourites
